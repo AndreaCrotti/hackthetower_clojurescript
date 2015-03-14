@@ -3,10 +3,12 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
+                 [weasel "0.6.0"]
+                 [com.cemerick/piggieback "0.1.5"]
                  [org.clojure/clojurescript  "0.0-3058"]]
 
   :node-dependencies [[source-map-support "0.2.8"]]
-
+  ;; :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :plugins [[lein-cljsbuild "1.0.4"]
             [lein-npm "0.4.0"]]
 
