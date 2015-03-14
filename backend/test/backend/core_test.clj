@@ -3,7 +3,7 @@
             [backend.core :refer :all]
             [backend.users :refer [reset-users!]]))
 
-(deftest a-test
+(deftest registration
   (testing "register-or-login"
     (reset-users!)
     (let [reg (register-or-login "new" "user")]

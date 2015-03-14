@@ -9,7 +9,7 @@
 
 (defn reset-users!
   []
-  (j/db-do-commands db ())
+  (j/db-do-commands db ()))
 
 (defn create-users-schema
   []
