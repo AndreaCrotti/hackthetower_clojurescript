@@ -18,12 +18,22 @@
   (swap! users
          (fn [m] (assoc m user {:password password}))))
 
-(defn register [user password]
+(defn register-or-login [user password]
   (if (@users user)
-    (check-password user password)
+    (if (check-password user password)
+      (do
+        (println "Welcome again"))
+      (println "Wrong password sorry"))
     (create-user user password)))
                     
 (defn print-input []
   (println (.-value (sel1 "#user"))))
 
-(println "Recompiled")
+(defn get-username []
+  (.-value (sel1 "#user")))
+
+(defn get-password []
+  (.-value (sel1 "#password")))
+
+(defn submit []
+  (register-or-login (get-username) (get-password)))
