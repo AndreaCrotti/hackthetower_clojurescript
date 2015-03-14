@@ -8,10 +8,15 @@
 
 (def users (atom {}))
 
-(defn add-user [x]
-  (assoc @users x {})
-  (println "Added user"))
+(defn check-password [user password]
+  (= (:password (@users user))))
+
+(defn create-user [user password]
+  (swap! users
+         (fn [m] (assoc m user {:password password}))))
 
 (defn register [user password]
-  "Register a user with user and password"
-  )
+  (if (@users user)
+    (check-password user password)
+    (create-user user password)))
+                    
