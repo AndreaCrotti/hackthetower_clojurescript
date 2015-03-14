@@ -3,5 +3,10 @@
             [backend.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+  (testing "register-or-login"
+    (let [reg (register-or-login "new" "user")]
+      (is (= (:message reg) "created"))))
+  (testing "Check password"
+    (do
+      (create-user "user" "pass")
+      (is (= true (check-password "user" "pass"))))))
