@@ -7,7 +7,7 @@
    :subname     "db/database.db"
    })
 
-(defn reset-users! []
+(defn reset-users!
   []
   (j/db-do-commands db ()))
 

@@ -8,3 +8,8 @@
     (reset-users!)
     (let [reg (register-or-login "new" "user")]
       (is (= (:message reg) "created")))))
+
+
+;TODO: implement authentication using JWT or similar mechanisms
+
+
