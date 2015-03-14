@@ -1,4 +1,5 @@
-(ns backend.users)
+(ns backend.users
+  (:require [backend.db :refer :all]))
 
 (def users (atom {}))
 
