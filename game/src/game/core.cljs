@@ -15,6 +15,7 @@
   (= (:password (@users user))) password)
 
 (defn create-user [user password]
+  (println "creating ")
   (swap! users
          (fn [m] (assoc m user {:password password}))))
 
@@ -26,9 +27,6 @@
       (println "Wrong password sorry"))
     (create-user user password)))
                     
-(defn print-input []
-  (println (.-value (sel1 "#user"))))
-
 (defn get-username []
   (.-value (sel1 "#user")))
 
