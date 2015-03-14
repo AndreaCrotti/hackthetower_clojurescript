@@ -24,8 +24,6 @@
     (create-user user password)))
                     
 (defn print-input []
-  (println (.value (sell "#user"))))
-  ;; (println (.value (dom/getElement "user"))))
-  ;; (println (.value (.getElementById js/document "user"))))
+  (println (.-value (sel1 "#user"))))
 
 (println "Recompiled")

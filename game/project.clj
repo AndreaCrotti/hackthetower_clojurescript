@@ -16,7 +16,7 @@
   :source-paths ["src" "target/classes"]
 
   :clean-targets ["out" "out-adv"]
-2
+
   :cljsbuild {
     :builds [{:id "dev"
               :source-paths ["src"]
