@@ -7,7 +7,9 @@
 (def users (atom {}))
 
 (defn reset-users! []
-  (def users (atom {})))
+  (if USE-DB
+    (bdb/reset-users!)
+    (def users (atom {}))))
 
 (reset-users!)
 
@@ -25,7 +27,12 @@
     (swap! users
            (fn [m] (assoc m user {:password password})))))
 
+(format "select password from users where username='%s'" user)
+
+
 (defn check-password [user password]
-  (= (:password (@users user)) password))
+  (if USE-DB
+    (= (bdb/get-password user) password)
+    (= (:password (@users user)) password)))
 
 ;TODO: should I define a protocol for a mock that behaves a bit like a databse?

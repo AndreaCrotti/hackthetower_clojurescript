@@ -1,5 +1,5 @@
 (ns backend.db
-  (:require [clojure.java.jdbc :refer :all]))
+  (:require [clojure.java.jdbc :as j]))
 
 (def db
   {:classname   "org.sqlite.JDBC"
@@ -7,19 +7,27 @@
    :subname     "db/database.db"
    })
 
-(defn reset-users
+(defn reset-users!
   []
-  (db-do-commands db (drop-table-ddl :users)))
+  (j/db-do-commands db ())
 
 (defn create-users-schema
   []
-  (create-table-ddl :users
+  (j/create-table-ddl :users
                     [:password :text]
                     [:username :text]))
 
 (defn create-db []
-  (try (db-do-commands db
+  (try (j/db-do-commands db
                        (create-users-schema))
        (catch Exception e (println e))))
+
+
+(defn get-password [username]
+  (let
+      [querystring (format "select password from users where username='%s'" username)]
+    (:password
+     (first (j/query db
+                     querystring)))))
 
 (create-db)
