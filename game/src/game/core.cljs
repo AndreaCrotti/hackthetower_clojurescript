@@ -3,6 +3,12 @@
 
 ;; (repl/connect "http://localhost:9000/repl")
 
-(enable-console-print!)
+(def users (atom {}))
 
-(println "Hello world!")
+(defn add-user [x]
+  (assoc @users x {})
+  (println (format "Added user %s" x)))
+
+(defn register [user password]
+  "Register a user with user and password"
+  )
