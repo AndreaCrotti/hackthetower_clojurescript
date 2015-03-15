@@ -28,9 +28,16 @@ something
   (testing "Mask"
     (is (= (secret-string sample-secret) "_y_")))
 
-  (testing "reveal"
-    (is (= (secret-string (reveal-letter sample-secret \x)) "xy_")))
-
   (testing "Generation"
     (let [sample (gen-string (str/split-lines sample-dictionary) 3)]
       (is (= "abc" sample)))))
+
+(deftest hangman-reveal
+  (testing "reveal simple"
+    (is (= (secret-string (reveal-letter sample-secret \x)) "xy_")))
+
+  (testing "reveal is case insensitive"
+    (let [with-uppercase [{:char \X :visible false}]
+          secret-lower (secret-string (reveal-letter with-uppercase \x))]
+      (is (= "X" secret-lower)))))
+

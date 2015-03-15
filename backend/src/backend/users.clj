@@ -1,5 +1,6 @@
 (ns backend.users
-  (:require [clojure.java.jdbc :as j]))
+  (:require [clojure.java.jdbc :as j]
+            [clojure.java.io :refer [delete-file]]))
 
 (def db-filename "db/database.db")
 
@@ -7,12 +8,6 @@
   {:classname   "org.sqlite.JDBC"
    :subprotocol "sqlite"
    :subname     db-filename
-   })
-
-(def db
-  {:classname   "org.sqlite.JDBC"
-   :subprotocol "sqlite"
-   :subname     "db/database.db"
    })
 
 (defn create-users-schema
@@ -41,4 +36,12 @@
 (defn check-password [user password]
   (= (get-password user) password))
 
-;TODO: should I define a protocol for a mock that behaves a bit like a databse?
+(defn create-db! []
+  (try (j/db-do-commands db
+                       (create-users-schema))
+       (catch Exception e (println e))))
+
+
+(defn delete-db!
+  []
+  (delete-file db-filename))
