@@ -41,3 +41,8 @@ something
           secret-lower (secret-string (reveal-letter with-uppercase \x))]
       (is (= "X" secret-lower)))))
 
+
+(deftest hangman-game
+  (testing "game over"
+    (let [secret-struct [{:char \x :visible true}]]
+      (is (true? (game-over secret-struct))))))
