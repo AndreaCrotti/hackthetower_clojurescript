@@ -1,17 +1,19 @@
 (ns backend.users
   (:require [clojure.java.jdbc :as j]))
 
+(def db-filename "db/database.db")
+
+(def db
+  {:classname   "org.sqlite.JDBC"
+   :subprotocol "sqlite"
+   :subname     db-filename
+   })
+
 (def db
   {:classname   "org.sqlite.JDBC"
    :subprotocol "sqlite"
    :subname     "db/database.db"
    })
-
-(defn reset-users!
-  []
-  (j/db-do-commands db ()))
-
-(reset-users!)
 
 (defn create-users-schema
   []

@@ -6,4 +6,5 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/java.jdbc "0.3.5"]
+                 [play-clj "0.4.4"]
                  [org.xerial/sqlite-jdbc "3.7.2"]])

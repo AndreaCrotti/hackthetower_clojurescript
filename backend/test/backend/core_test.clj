@@ -3,6 +3,10 @@
             [backend.core :refer :all]
             [backend.users :refer [reset-users!]]))
 
+(defn setup-db
+  []
+  )
+
 (deftest registration
   (testing "register-or-login"
     (reset-users!)
