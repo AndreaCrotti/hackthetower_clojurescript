@@ -36,11 +36,15 @@
   [word]
   (= word @secret-word))
 
+(defn valid-char
+  [char]
+  (contains? (set all-chars) char))
+
 (defn initialize-struct
   [word]
   (for [i word]
     ;TODO: can be made more readable?
-    {:char i :visible (not (contains? (set all-chars) i))}))
+    {:char i :visible (not (valid-char i))}))
 
 (defn set-secret
   [size]
@@ -78,12 +82,23 @@
   (map (partial filter-char letter) secret))
 
 
+(def seen-letters (atom #{}))
+
+(defn found?
+  [letter struct]
+  (let [founds (filter #(and (= letter (:char %)) (false? (:visible %))) struct)]
+    (not (empty? founds))))
+
 (defn move
-  "Do one move and return a new masked thing"
+  "Do one move and, return True if the letter was found or False otherwise"
   [letter]
-  (let [newstruct (reveal-letter @masked-word letter)]
-    (reset! masked-word newstruct)
-    (secret-string @masked-word)))
+  (if (found? letter @masked-word)
+    (let [newstruct (reveal-letter @masked-word letter)]
+      (swap! seen-letters #(conj % letter))
+      (reset! masked-word newstruct)
+      (secret-string @masked-word)
+      true))
+  false)
 
 
 (defn game-over

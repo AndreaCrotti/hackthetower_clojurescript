@@ -41,13 +41,22 @@
   (testing "reveal simple"
     (is (= (secret-string (reveal-letter sample-secret \x)) "xy_")))
 
+  (testing "found letter"
+    (is (true? (found? \x [{:char \x :visible false}]))))
+  
   (testing "reveal is case insensitive"
     (let [with-uppercase [{:char \X :visible false}]
           secret-lower (secret-string (reveal-letter with-uppercase \x))]
       (is (= "X" secret-lower)))))
 
-
 (deftest hangman-game
+  ; this test checks for side effects basically
+  (testing "move changes available letters"
+    (reset! secret-word "abc")
+    (reset! masked-word (initialize-struct @secret-word))
+    (is (= true (move \a)))
+    (is (= @seen-letters #{\a})))
+
   (testing "game over"
     (let [secret-struct [{:char \x :visible true}]]
       (is (true? (game-over secret-struct))))))
