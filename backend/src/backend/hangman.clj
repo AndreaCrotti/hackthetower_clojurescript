@@ -13,6 +13,13 @@
 (def all-words (str/split-lines (slurp dictionary-file)))
 ;; Generate a random string which has to be guessed by different users
 
+(def all-chars (map char (range (int \a) (inc (int \z)))))
+
+(defn random-char
+  []
+  (pick-random-element all-chars))
+
+
 ;TODO: order matters so be careful to leave things as they should be
 (defn pick-random-element
   "Pick a random element from a collection"
@@ -30,10 +37,15 @@
   [word]
   (= word @secret-word))
 
+(defn initialize-struct
+  [word]
+  (for [i word]
+    {:char i :visible (not (contains? (set all-chars) i))}))
+
 (defn set-secret
   [size]
   (let [word (gen-string all-words size)
-        secret-struct (for [i word] {:char i :visible false})]
+        secret-struct (initialize-struct word)]
 ;TODO: the two operations together are not atomic anymore, need to use
 ;refs for this purpose now, or maybe some other structure
     (reset! secret-word word)

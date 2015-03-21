@@ -5,8 +5,8 @@
 
 (def sample-dictionary
   "abc
-sample
-something
+  sample
+  something
 ")
 
 
@@ -28,6 +28,11 @@ something
   (testing "Mask"
     (is (= (secret-string sample-secret) "_y_")))
 
+  (testing "Non chars are visible straight away"
+    (let [with-hyphen (initialize-struct "abc'")
+          string (secret-string with-hyphen)]
+      (is (= string "___'"))))
+  
   (testing "Generation"
     (let [sample (gen-string (str/split-lines sample-dictionary) 3)]
       (is (= "abc" sample)))))
