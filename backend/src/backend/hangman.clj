@@ -15,11 +15,6 @@
 
 (def all-chars (map char (range (int \a) (inc (int \z)))))
 
-(defn random-char
-  []
-  (pick-random-element all-chars))
-
-
 ;TODO: order matters so be careful to leave things as they should be
 (defn pick-random-element
   "Pick a random element from a collection"
@@ -27,6 +22,10 @@
   (let [size (count coll)
         index (Math/round (* (Math/random) (dec size)))]
     (nth coll index)))
+
+(defn random-char
+  []
+  (pick-random-element all-chars))
 
 (defn gen-string
   "Generate a random string"
@@ -40,6 +39,7 @@
 (defn initialize-struct
   [word]
   (for [i word]
+    ;TODO: can be made more readable?
     {:char i :visible (not (contains? (set all-chars) i))}))
 
 (defn set-secret

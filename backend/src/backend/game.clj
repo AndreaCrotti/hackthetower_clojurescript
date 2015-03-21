@@ -4,24 +4,34 @@
   (:require [backend.hangman :refer :all]))
 
 
-;TODO: function to get the next move, could be polymorphic
-;or just be passed in?
+(defn attempt-guess
+  []
+  (println "What is your guess?")
+  (let [guess (read-line)]
+    (guess-word guess)))
 
-;TODO: get an initial counter that can be passed around
-;TODO: get word from entry
+(defn get-letter
+  []
+  (println "What letter you want to reveal?")
+  (nth (read-line) 0))
+
+
 (defn loop
-  [{:keys [attempt] :or {attempt 0}}]
+  [& {:keys [attempt] :or {attempt 0}}]
   (if (game-over @masked-word)
     (println (format "Game finished, answer was %s" @secret-word))
     (do
-      (move (random-char))
+      ;; (move (random-char))
+      (move (get-letter))
       (println (format "At attempt %d now word is %s" attempt (secret-string @masked-word)))
-      (loop (inc attempt)))))
+      (if (attempt-guess)
+        (println "Congratulations you got the right word")
+        (loop :attempt (inc attempt))))))
 
 ;TODO: for the parallel computation create one string for every game
 (defn -main
   "Application main function"
   [& args]
   (set-secret 10)
-  (loop 0))
+  (loop :attempt 0))
 
