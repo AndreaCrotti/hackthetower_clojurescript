@@ -19,7 +19,7 @@
 (defn user-exist [user]
   (let [query (format "select * from users where username='%s'" user)
         result (j/query db [query] :row-fn :cost)]
-    (> (count result) 0)))
+    (pos? (count result))))
 
 ;TODO: what if we make a new database every single time??
 (defn create-user [user password]

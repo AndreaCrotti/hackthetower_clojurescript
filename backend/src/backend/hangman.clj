@@ -34,6 +34,8 @@
   [size]
   (let [word (gen-string all-words size)
         secret-struct (for [i word] {:char i :visible false})]
+;TODO: the two operations together are not atomic anymore, need to use
+;refs for this purpose now, or maybe some other structure
     (reset! secret-word word)
     (reset! masked-word secret-struct)))
 
@@ -46,7 +48,7 @@
 (defn lowercase-char
   [char]
   ;TODO: this seems quite hacky can it be improved?
-  (nth (seq (char-array (.toLowerCase (.toString char)))) 0))
+  (nth (seq (char-array (.toLowerCase (str char)))) 0))
 
 
 ;TODO: is there a way to print out the current variables in the given function?
@@ -62,6 +64,14 @@
   "Return another secret structure where the revealed chars are marked now as visible"
   [secret letter]
   (map (partial filter-char letter) secret))
+
+
+(defn move
+  "Do one move and return a new masked thing"
+  [letter]
+  (let [newstruct (reveal-letter @masked-word letter)]
+    (reset! masked-word newstruct)
+    (secret-string @masked-word)))
 
 
 (defn game-over
