@@ -1,7 +1,8 @@
 ;TODO: add AOT thing to make it faster
 (ns backend.game
   (:gen-class :main true)
-  (:require [backend.hangman :refer :all]))
+  (:require [backend.hangman :refer :all])
+  (:require [clojure.set :as set]))
 
 
 (defn attempt-guess
@@ -10,11 +11,23 @@
   (let [guess (read-line)]
     (guess-word guess)))
 
+
 (defn get-letter
   []
-  ;TODO: add here a way to get a list of valid choices
-  (println "What letter you want to reveal?")
-  (nth (read-line) 0))
+  (let [valid-chars (set/difference (set all-chars) @seen-letters)]
+    (println
+     (format "What letter you want to reveal? Possible choices = %s" (clojure.string/join " " valid-chars)))
+    (let [user-input (read-line)]
+      (if (> (count user-input) 1)
+        (do
+          (println "Input too log")
+          (get-letter))
+        (let [char (nth user-input 0)]
+          (if (contains? valid-chars char)
+            char
+            (do
+              (println "Not a valid choice")
+              (get-letter))))))))
 
 
 (defn game-loop

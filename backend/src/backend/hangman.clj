@@ -1,4 +1,3 @@
-;TODO: try out the clj-refactor library
 ;TODO: which things should be made private and which functions?
 
 (ns backend.hangman

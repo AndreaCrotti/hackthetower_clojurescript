@@ -52,7 +52,7 @@
 
 (defn- reset-all
   []
-  (reset! seen-letters (atom #{}))
+  (reset! seen-letters #{})
   (reset! secret-word "abc")
   (reset! masked-word (-> @secret-word
                           initialize-struct
@@ -61,9 +61,6 @@
 (deftest hangman-game
   ; this test checks for side effects basically
   (testing "move changes available letters"
-    ;; (reset! seen-letters (atom #{}))
-    ;; (reset! secret-wo11rd "abc")
-    ;; (reset! masked-word (initialize-struct @secret-word))
     (reset-all)
     (is (true? (move \a)))
     (is (= @seen-letters #{\a})))
