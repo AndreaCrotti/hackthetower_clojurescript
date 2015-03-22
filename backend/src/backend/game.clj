@@ -12,6 +12,7 @@
 
 (defn get-letter
   []
+  ;TODO: add here a way to get a list of valid choices
   (println "What letter you want to reveal?")
   (nth (read-line) 0))
 
@@ -19,16 +20,14 @@
 (defn game-loop
   [limit & {:keys [attempt] :or {attempt 0}}]
   (if (game-over @masked-word)
-    (println (format "Game finished, answer was %s" @secret-word))
+    (println "Congratulations, You won!")
     (if (= limit attempt)
-      (println "Sorry no more attempts av")
+      (println ("Sorry no more attempts, the secret word was %s" @secret-word))
 
       (do
-        (move (get-letter))
-        (println (format "At attempt %d now word is %s" attempt (secret-string @masked-word)))
-        (if (attempt-guess)
-          (println "Congratulations you got the right word")
-          (game-loop limit :attempt (inc attempt)))))))
+        (let [new-attempt (if (not (move (get-letter))) (inc attempt) attempt)]
+          (println (format "At attempt %d now word is %s" new-attempt (secret-string @masked-word)))
+          (game-loop limit :attempt new-attempt))))))
 
 ;TODO: for the parallel computation create one string for every game
 (defn -main

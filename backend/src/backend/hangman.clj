@@ -13,6 +13,8 @@
 (def all-words (str/split-lines (slurp dictionary-file)))
 ;; Generate a random string which has to be guessed by different users
 
+(def seen-letters (atom #{}))
+
 (def all-chars (map char (range (int \a) (inc (int \z)))))
 
 ;TODO: order matters so be careful to leave things as they should be
@@ -42,9 +44,10 @@
 
 (defn initialize-struct
   [word]
-  (for [i word]
-    ;TODO: can be made more readable?
-    {:char i :visible (not (valid-char i))}))
+  ;TODO: is using a vec really necesary?
+  (vec
+   (for [i word]
+     {:char i :visible (not (valid-char i))})))
 
 (defn set-secret
   [size]
@@ -81,24 +84,22 @@
   [secret letter]
   (map (partial filter-char letter) secret))
 
-
-(def seen-letters (atom #{}))
-
 (defn found?
   [letter struct]
   (let [founds (filter #(and (= letter (:char %)) (false? (:visible %))) struct)]
     (not (empty? founds))))
 
+;TODO: need to unify all the side effects inside one container
 (defn move
   "Do one move and, return True if the letter was found or False otherwise"
   [letter]
-  (if (found? letter @masked-word)
-    (let [newstruct (reveal-letter @masked-word letter)]
-      (swap! seen-letters #(conj % letter))
-      (reset! masked-word newstruct)
-      (secret-string @masked-word)
-      true))
-  false)
+  (let [changed (found? letter @masked-word)]
+    (if changed
+      (let [newstruct (reveal-letter @masked-word letter)]
+        (swap! seen-letters conj letter)
+        (reset! masked-word newstruct)
+        (secret-string @masked-word)))
+    changed))
 
 
 (defn game-over

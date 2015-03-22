@@ -42,6 +42,7 @@
     (is (= (secret-string (reveal-letter sample-secret \x)) "xy_")))
 
   (testing "found letter"
+    (is (false? (found? \y [{:char \x :visible false}])))
     (is (true? (found? \x [{:char \x :visible false}]))))
   
   (testing "reveal is case insensitive"
@@ -49,12 +50,22 @@
           secret-lower (secret-string (reveal-letter with-uppercase \x))]
       (is (= "X" secret-lower)))))
 
+(defn- reset-all
+  []
+  (reset! seen-letters (atom #{}))
+  (reset! secret-word "abc")
+  (reset! masked-word (-> @secret-word
+                          initialize-struct
+                          vec)))
+
 (deftest hangman-game
   ; this test checks for side effects basically
   (testing "move changes available letters"
-    (reset! secret-word "abc")
-    (reset! masked-word (initialize-struct @secret-word))
-    (is (= true (move \a)))
+    ;; (reset! seen-letters (atom #{}))
+    ;; (reset! secret-wo11rd "abc")
+    ;; (reset! masked-word (initialize-struct @secret-word))
+    (reset-all)
+    (is (true? (move \a)))
     (is (= @seen-letters #{\a})))
 
   (testing "game over"
