@@ -92,10 +92,10 @@
 (defn move
   "Do one move and, return True if the letter was found or False otherwise"
   [letter]
+  (swap! seen-letters conj letter)
   (let [changed (found? letter @masked-word)]
     (if changed
       (let [newstruct (reveal-letter @masked-word letter)]
-        (swap! seen-letters conj letter)
         (reset! masked-word newstruct)
         (secret-string @masked-word)))
     changed))

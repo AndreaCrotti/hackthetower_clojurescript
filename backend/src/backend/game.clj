@@ -12,6 +12,7 @@
     (guess-word guess)))
 
 
+;TODO: try out some other strategies likes
 (defn get-letter
   []
   (let [valid-chars (set/difference (set all-chars) @seen-letters)]
