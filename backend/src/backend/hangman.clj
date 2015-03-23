@@ -14,7 +14,9 @@
 
 (def seen-letters (atom #{}))
 
-(def all-chars (map char (range (int \a) (inc (int \z)))))
+(def all-chars
+  "Simple list of all the chars"
+  (map char (range (int \a) (inc (int \z)))))
 
 ;TODO: order matters so be careful to leave things as they should be
 (defn pick-random-element

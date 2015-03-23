@@ -11,7 +11,6 @@
   (let [guess (read-line)]
     (guess-word guess)))
 
-
 ;TODO: try out some other strategies likes
 (defn get-letter
   []
