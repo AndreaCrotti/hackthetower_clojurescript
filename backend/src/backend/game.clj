@@ -35,8 +35,7 @@
   (if (game-over @masked-word)
     (println "Congratulations, You won!")
     (if (= limit attempt)
-      (println ("Sorry no more attempts, the secret word was %s" @secret-word))
-
+      (println "Sorry no more attempts, the secret word was" @secret-word)
       (do
         (let [new-attempt (if (not (move (get-letter))) (inc attempt) attempt)]
           (println (format "At attempt %d now word is %s" new-attempt (secret-string @masked-word)))
