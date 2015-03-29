@@ -1,14 +1,16 @@
-# backend
+# hackthetower_clojurescript
+clojurescript fun
 
-A Clojure library designed to ... well, that part is up to you.
+# TODO
+- ring-swagger support
+- schema support for validation
+- deploy to Heroku
+- Clojurescript page with OM/React/Reagent?
+- multi user authentication
+- find graphics
+- use an agent or some coordinated refs to change all the mutable state in an atomic way
 
-## Usage
+# Other ideas
 
-FIXME
-
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+- use core.async
+- use core.logic to auto-solve via unification?
