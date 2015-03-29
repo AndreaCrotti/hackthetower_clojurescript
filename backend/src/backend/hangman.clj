@@ -101,8 +101,7 @@
     (if changed
       (let [newstruct (reveal-letter @masked-word letter)]
         (reset! masked-word newstruct)
-        (reset! secret-word (secret-string @masked-word))
-        @secret-word)
+        (reset! secret-word (secret-string @masked-word))))
     changed))
 
 

@@ -8,6 +8,7 @@ clojurescript fun
 - Clojurescript page with OM/React/Reagent?
 - multi user authentication
 - find graphics
+- use an agent or some coordinated refs to change all the mutable state in an atomic way
 
 # Other ideas
 
