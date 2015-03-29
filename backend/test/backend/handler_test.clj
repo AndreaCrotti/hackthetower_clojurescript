@@ -7,7 +7,10 @@
 (deftest initialize-test
   (testing "Init everything"
     (let [response (app (mock/request :post "/initialize"))]
-      (is (= (:status response) 201)))))
+      (is (= (:status response) 201))))
+  (testing "get current word"
+    (let [response (app (mock/request :get "/status"))]
+      (is (= (:status response) 200)))))
 
 (deftest move-test
   (testing "set up and do a move"
