@@ -15,7 +15,9 @@
                  [org.xerial/sqlite-jdbc "3.8.7"]]
   
   :plugins [[lein-ring "0.8.13"]]
-  :ring {:handler backend.handler/app}
+  :ring {:handler backend.handler/app
+         :auto-reload? true
+         :auto-refresh? true}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})

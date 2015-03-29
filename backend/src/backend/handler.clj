@@ -25,7 +25,7 @@
      {:status 201})))
 
 (defroutes app-routes
-  (GET "/" [] "Welcome to Hangman")
+  (GET "/" [] "No need to restart the server every time")
   (GET "/status" [] {:status 200 :body (hang/secret-string @hang/masked-word)})
   (POST "/initialize" [] (initialize-word))
   (POST "/move" params  (move-api (nth (:letter (:params params)) 0)))
