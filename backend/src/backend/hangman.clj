@@ -87,7 +87,6 @@
 
 (defn found?
   [letter struct]
-  (println letter struct)
   (let [founds (filter #(and (= letter (:char %)) (false? (:visible %))) struct)]
     (not (empty? founds))))
 
@@ -97,11 +96,8 @@
   [letter]
   (swap! seen-letters conj letter)
   (let [changed (found? letter @masked-word)]
-    (println "into the move " letter @masked-word changed)
-    (if changed
-      (let [newstruct (reveal-letter @masked-word letter)]
-        (reset! masked-word newstruct)
-        (println "new secret word " @masked-word (secret-string @masked-word))))
+    (when changed
+      (reset! masked-word (reveal-letter @masked-word letter)))
     changed))
 
 
