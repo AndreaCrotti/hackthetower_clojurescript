@@ -12,6 +12,7 @@
   (println "Found letter? " letter " in word " @hang/secret-word (hang/found? letter @hang/masked-word))
   ;; (println (str "Secret before " @hang/masked-word))
   (hang/move letter)
+  (println "new secret word api " @hang/masked-word (hang/secret-string @hang/masked-word))
   ;; (println (str "Secret after " @hang/masked-word))
   {:status 200 :body (hang/secret-string @hang/masked-word)})
 

@@ -91,7 +91,7 @@
   (let [founds (filter #(and (= letter (:char %)) (false? (:visible %))) struct)]
     (not (empty? founds))))
 
-;TODO: need to unify all the side effects inside one container
+;TODO: need to unify all the side effects inside one containe
 (defn move
   "Do one move and, return True if the letter was found or False otherwise"
   [letter]
@@ -101,7 +101,7 @@
     (if changed
       (let [newstruct (reveal-letter @masked-word letter)]
         (reset! masked-word newstruct)
-        (reset! secret-word (secret-string @masked-word))))
+        (println "new secret word " @masked-word (secret-string @masked-word))))
     changed))
 
 
