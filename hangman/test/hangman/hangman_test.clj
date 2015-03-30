@@ -18,7 +18,7 @@
 
 (deftest hangman-test
   (testing "Guess string"
-    (reset! secret-word "abc")
+    (dosync (ref-set secret-word "abc"))
     (true? (guess-word "abc")))
 
   (testing "Random element"
@@ -52,11 +52,12 @@
 
 (defn- reset-all
   []
-  (reset! seen-letters #{})
-  (reset! secret-word "abc")
-  (reset! masked-word (-> @secret-word
-                          initialize-struct
-                          vec)))
+  (dosync
+   (ref-set seen-letters #{})
+   (ref-set secret-word "abc")
+   (ref-set masked-word (-> @secret-word
+                            initialize-struct
+                            vec))))
 
 (deftest hangman-game
   ; this test checks for side effects basically

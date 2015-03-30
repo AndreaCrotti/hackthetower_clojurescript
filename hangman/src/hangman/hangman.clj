@@ -6,14 +6,14 @@
 ;TODO: is it possible to avoid all these atoms?
 ;TODO: when this is concurrent need a data structure per each session
 ;see how to use promises and such things
-(def secret-word (atom ""))
-(def masked-word (atom []))
+(def secret-word (ref ""))
+(def masked-word (ref []))
 (def dictionary-file "/usr/share/dict/british")
 (def all-words (str/split-lines (slurp dictionary-file)))
 ;; Generate a random string which has to be guessed by different users
 
-(def seen-letters (atom #{}))
-
+(def seen-letters (ref #{}))
+ 
 (def all-chars
   "Simple list of all the chars"
   (map char (range (int \a) (inc (int \z)))))
@@ -55,9 +55,10 @@
   (let [word (gen-string all-words size)
         secret-struct (initialize-struct word)]
 ;TODO: the two operations together are not atomic anymore, need to use
-;refs for this purpose now, or maybe some other structure
-    (reset! secret-word word)
-    (reset! masked-word secret-struct)))
+                                        ;refs for this purpose now, or maybe some other structure
+    (dosync
+     (ref-set secret-word word)
+     (ref-set masked-word secret-struct))))
 
 (defn secret-string
   "Join the secret string structure marking hidden chars as _"
@@ -94,10 +95,12 @@
 (defn move
   "Do one move and, return True if the letter was found or False otherwise"
   [letter]
-  (swap! seen-letters conj letter)
+  (dosync (alter seen-letters conj letter))
+  ;; (swap! seen-letters conj letter)
   (let [changed (found? letter @masked-word)]
     (when changed
-      (reset! masked-word (reveal-letter @masked-word letter)))
+      (dosync
+       (ref-set masked-word (reveal-letter @masked-word letter))))
     changed))
 
 

@@ -20,8 +20,9 @@
      {:status 201}))
   ([secret]
    (do
-     (reset! hang/secret-word secret)
-     (reset! hang/masked-word (hang/initialize-struct secret))
+     (dosync
+      (ref-set hang/secret-word secret)
+      (ref-set hang/masked-word (hang/initialize-struct secret)))
      {:status 201})))
 
 (defroutes app-routes
