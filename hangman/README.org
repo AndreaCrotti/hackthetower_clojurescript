@@ -6,7 +6,9 @@
 * TODO Clojurescript page with OM/React/Reagent?
 * TODO multi user authentication
 * TODO find graphics
-* TODO use an agent or some coordinated refs to change all the mutable state in an atomic way
+* DONE use an agent or some coordinated refs to change all the mutable state in an atomic way
+  CLOSED: [2015-03-30 Mon 09:12]
+  - CLOSING NOTE [2015-03-30 Mon 09:12]
 
 # Other ideas
 * use core.async
