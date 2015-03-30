@@ -1,7 +1,7 @@
-(ns backend.hangman-test
+(ns hangman.hangman-test
   (:require [clojure.test :refer :all]
             [clojure.string :as str]
-            [backend.hangman :refer :all]))
+            [hangman.hangman :refer :all]))
 
 (def sample-dictionary
   "abc

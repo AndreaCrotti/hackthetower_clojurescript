@@ -1,6 +1,6 @@
 ;TODO: which things should be made private and which functions?
 
-(ns backend.hangman
+(ns hangman.hangman
   (:require [clojure.string :as str]))
 
 ;TODO: is it possible to avoid all these atoms?

@@ -1,5 +1,5 @@
-(ns backend.core
-  (:require [backend.users :refer :all]))
+(ns hangman.core
+  (:require [hangman.users :refer :all]))
 
 (def OK "ok")
 (def ERROR "error")

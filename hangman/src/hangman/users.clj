@@ -1,4 +1,4 @@
-(ns backend.users
+(ns hangman.users
   (:require [clojure.java.jdbc :as j]
             [clojure.java.io :refer [delete-file]]))
 

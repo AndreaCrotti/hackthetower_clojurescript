@@ -1,9 +1,9 @@
-(ns backend.handler
+(ns hangman.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [clojure.data.json :as json]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
-            [backend.hangman :as hang]))
+            [hangman.hangman :as hang]))
 
 (defn move-api
   [letter]

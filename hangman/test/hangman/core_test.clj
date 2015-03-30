@@ -1,7 +1,7 @@
-(ns backend.core-test
+(ns hangman.core-test
   (:require [clojure.test :refer :all]
-            [backend.core :refer :all]
-            [backend.users :refer [create-db! delete-db!]]))
+            [hangman.core :refer :all]
+            [hangman.users :refer [create-db! delete-db!]]))
 
 (defn setup-db
   []

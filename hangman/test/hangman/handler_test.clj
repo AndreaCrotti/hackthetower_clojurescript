@@ -1,7 +1,7 @@
-(ns backend.handler-test
+(ns hangman.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [backend.handler :refer :all]))
+            [hangman.handler :refer :all]))
 
 
 (deftest initialize-test
@@ -14,7 +14,8 @@
 
 (deftest move-test
   (testing "set up and do a move"
-   (initialize-word "abc")
+    ;TODO: should this be done as call as well??
+    (initialize-word "abc")
     (let [response (app (mock/request :post "/move" {:letter \a}))]
       (is (= (:status response) 200))
       (is (= (:body response) "a__")))))

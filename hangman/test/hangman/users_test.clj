@@ -1,6 +1,6 @@
-(ns backend.users-test
+(ns hangman.users-test
   (:require [clojure.test :refer :all]
-            [backend.users :refer :all]))
+            [hangman.users :refer :all]))
 
 (deftest users-test
   (testing "check-pass"

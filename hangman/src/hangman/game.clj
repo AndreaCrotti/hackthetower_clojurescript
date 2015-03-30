@@ -1,7 +1,7 @@
 ;TODO: add AOT thing to make it faster
-(ns backend.game
+(ns hangman.game
   (:gen-class :main true)
-  (:require [backend.hangman :refer :all])
+  (:require [hangman.hangman :refer :all])
   (:require [clojure.set :as set]))
 
 

@@ -1,7 +1,7 @@
-(defproject backend "0.1.0-SNAPSHOT"
-  :description "Project backend for game playing"
+(defproject hangman "0.1.0-SNAPSHOT"
+  :description "Project hangman for game playing"
   :url "http://example.com/FIXME"
-  :main backend.game
+  :main hangman.game
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -18,7 +18,7 @@
   
   :plugins [[lein-ring "0.8.13"]
             [lein-environ "1.0.0"]]
-  :ring {:handler backend.handler/app
+  :ring {:handler hangman.handler/app
          :auto-reload? true
          :auto-refresh? true}
   :profiles
