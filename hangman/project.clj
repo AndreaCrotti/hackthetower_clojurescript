@@ -1,7 +1,8 @@
 (defproject hangman "0.1.0-SNAPSHOT"
   :description "Project hangman for game playing"
-  :url "http://example.com/FIXME"
+  :url "http://example.cnom/FIXME"
   :main hangman.game
+  ;TODO: check if the liecense is alright?
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
