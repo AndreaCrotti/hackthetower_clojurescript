@@ -60,9 +60,6 @@
    ;; A boolean option defaulting to nil
    ["-h" "--help"]])
 
-(defn -main [& args]
-  (parse-opts args cli-options))
-;TODO: for the parallel computation create one string for every game
 
 (defn -main
   "Application main function"
