@@ -1,8 +1,9 @@
 ;TODO: add AOT thing to make it faster
 (ns hangman.game
   (:gen-class :main true)
-  (:require [hangman.hangman :refer :all])
-  (:require [clojure.set :as set]))
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [hangman.hangman :refer :all]
+            [clojure.set :as set]))
 
 
 (defn attempt-guess
@@ -41,10 +42,34 @@
           (println (format "At attempt %d now word is %s" new-attempt (secret-string @masked-word)))
           (game-loop limit :attempt new-attempt))))))
 
+(def cli-options
+  ;; An option with a required argument
+  [["-n" "--attempts ATTEMPT" "Number of max attempts"
+    :default 10
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(pos? %) "Must be a positive number"]]
+   ["-l" "--length LENGTH" "Random string length"
+    :default 10
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(pos? %) "Must be a positive number"]]
+   ["-s" "--secret" "Optional string to set"]
+   ["-v" nil "Verbosity level"
+    :id :verbosity
+    :default 0
+    :assoc-fn (fn [m k _] (update-in m [k] inc))]
+   ;; A boolean option defaulting to nil
+   ["-h" "--help"]])
+
+(defn -main [& args]
+  (parse-opts args cli-options))
 ;TODO: for the parallel computation create one string for every game
+
 (defn -main
   "Application main function"
   [& args]
-  (set-secret 10)
-  (game-loop 10 :attempt 0))
+  (let [options (parse-opts args cli-options)
+        length (:length (:options options))
+        attempts (:attempt (:options options))]
+    (set-secret length)
+    (game-loop attempts :attempt 0)))
 
