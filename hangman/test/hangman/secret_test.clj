@@ -8,6 +8,6 @@
     (reset-games)
     (new-game)
     (is (= 1 (count (current-games)))))
+
   (testing "uuid-generation-is-string"
     (is (pos? (count (uuid))))))
-

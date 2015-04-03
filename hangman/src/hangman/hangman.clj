@@ -1,7 +1,8 @@
 ;TODO: which things should be made private and which functions?
 
 (ns hangman.hangman
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [hangman.secret :as secret]))
 
 ;TODO: is it possible to avoid all these atoms?
 ;TODO: when this is concurrent need a data structure per each session
@@ -66,25 +67,10 @@
   (str/join (map #(if (:visible %) (:char %) \_) secret)))
 
 
-(defn lowercase-char
-  [char]
-  ;TODO: this seems quite hacky can it be improved?
-  (nth (seq (char-array (.toLowerCase (str char)))) 0))
-
-
-;TODO: is there a way to print out the current variables in the given function?
-(defn filter-char
-  [letter el]
-  (let [to-find (lowercase-char letter)]
-    (if (= (lowercase-char (:char el)) to-find)
-      ;TODO: is there a better way to modify this structure inline?
-      {:char (:char el) :visible true}
-      el)))
-
 (defn reveal-letter
   "Return another secret structure where the revealed chars are marked now as visible"
   [secret letter]
-  (map (partial filter-char letter) secret))
+  (map (partial secret/filter-char letter) secret))
 
 (defn found?
   [letter struct]
