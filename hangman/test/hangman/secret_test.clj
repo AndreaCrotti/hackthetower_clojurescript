@@ -28,19 +28,18 @@
       (is (= 1 (length-current-games)))
       (is (= desired (get-secret gameid))))))
 
-(deftest reveal-letter-test
-  (testing "reveal letter returns new string"
-    (reset-games)
-    (let [gameid (new-game :secret "secret")
-          new-string (reveal-letter gameid \s)]
-      (is (= "s_____" new-string)))))
-
 (deftest secret-strings-test
   (testing "mask and unmask"
     (is (= (secret-string sample-secret) "_y_"))))
 
 (deftest secret-reveal-test
   (let [game-id (new-game :secret "xyz")]
+    (testing "reveal letter returns new string"
+      (reset-games)
+      (let [gameid (new-game :secret "secret")
+            new-string (reveal-letter gameid \s)]
+        (is (= "s_____" new-string))))
+
     (testing "reveal simple"
       (is (= (secret-string (reveal-letter game-id \x)) "xy_")))
 
