@@ -17,10 +17,6 @@
 
 
 (deftest hangman-test
-  (testing "Guess string"
-    (dosync (ref-set secret-word "abc"))
-    (true? (guess-word "abc")))
-
   (testing "Random element"
     ;; (doseq [i (range 10)]
     (pick-random-element ["abc" "bde"]))

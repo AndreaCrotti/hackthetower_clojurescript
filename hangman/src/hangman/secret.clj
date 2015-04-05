@@ -22,12 +22,6 @@
       {:char (:char el) :visible true}
       el)))
 
-;TODO: every value of the dictionary is simply a word structure
-(defn reveal-letter
-  "Return another secret structure where the revealed chars are marked now as visible"
-  [secret letter]
-  (map (partial filter-char letter) secret))
-
 (reset-games)
 
 (defn secret-string
@@ -66,6 +60,7 @@
   (map char (range (int \a) (inc (int \z)))))
 
 (defn valid-char
+  "Check if the char given is valid or not"
   [char]
   (contains? (set all-chars) char))
 
@@ -76,6 +71,7 @@
    (for [i word]
      {:char i :visible (not (valid-char i))})))
 
+;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
   "Create a new game and store it in the ref"
   [& {:keys [secret]}]

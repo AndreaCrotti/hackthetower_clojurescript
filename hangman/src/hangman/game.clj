@@ -6,12 +6,6 @@
             [clojure.set :as set]))
 
 
-(defn attempt-guess
-  []
-  (println "What is your guess?")
-  (let [guess (read-line)]
-    (guess-word guess)))
-
 ;TODO: try out some other strategies likes
 (defn get-letter
   []
