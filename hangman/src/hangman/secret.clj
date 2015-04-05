@@ -1,4 +1,6 @@
-(ns hangman.secret)
+(ns hangman.secret
+  (:require [clojure.string :as str]
+            [hangman.wordgen :as wordgen]))
 
 ;TODO: is there a nicer way to do this?like defonce?
 (defn reset-games
@@ -33,17 +35,45 @@
   [game-id letter]
   ())
 
+
+(defn secret-string
+  "Join the secret string structure marking hidden chars as _"
+  [secret]
+  (str/join (map #(if (:visible %) (:char %) \_) secret)))
+
+(defn get-secret
+  "Return the secret string for the given game id"
+  [gameid]
+  (secret-string (get @live-games gameid)))
+
 (defn uuid
   "Get a new random UUID that represents a given name"
   [] (str (java.util.UUID/randomUUID)))
 
+(def all-chars
+  "Simple list of all the chars"
+  (map char (range (int \a) (inc (int \z)))))
+
+(defn valid-char
+  [char]
+  (contains? (set all-chars) char))
+
+(defn initialize-struct
+  [word]
+  ;TODO: is using a vec really necesary?
+  (vec
+   (for [i word]
+     {:char i :visible (not (valid-char i))})))
 
 (defn new-game
   "Create a new game and store it in the ref"
-  []
-  (let [new-game-id (uuid)]
+  [& {:keys [secret]}]
+  (let [new-game-id (uuid)
+        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
+        new-secret-struct (initialize-struct new-secret)]
     (dosync
-     (alter live-games #(assoc % new-game-id "")))))
+     (alter live-games #(assoc % new-game-id new-secret)))
+    new-game-id))
 
 
 (defn current-games

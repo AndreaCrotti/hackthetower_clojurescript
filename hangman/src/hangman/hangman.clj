@@ -19,6 +19,10 @@
   "Simple list of all the chars"
   (map char (range (int \a) (inc (int \z)))))
 
+(defn valid-char
+  [char]
+  (contains? (set all-chars) char))
+
 ;TODO: order matters so be careful to leave things as they should be
 (defn pick-random-element
   "Pick a random element from a collection"
@@ -39,10 +43,6 @@
 (defn guess-word
   [word]
   (= word @secret-word))
-
-(defn valid-char
-  [char]
-  (contains? (set all-chars) char))
 
 (defn initialize-struct
   [word]

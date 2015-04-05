@@ -18,6 +18,7 @@
                  [org.clojure/tools.cli "0.3.1"]
                  [org.clojure/data.json "0.2.5"]
                  [ring/ring-defaults "0.1.2"]
+                 ;TODO: add postgres and datomic
                  [org.xerial/sqlite-jdbc "3.8.7"]]
   
   :plugins [[lein-ring "0.8.13"]
