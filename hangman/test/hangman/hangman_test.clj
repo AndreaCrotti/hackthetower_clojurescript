@@ -3,48 +3,21 @@
             [clojure.string :as str]
             [hangman.hangman :refer :all]))
 
-(def sample-dictionary
-  "abc
-  sample
-  something
-")
-
-
 (def sample-secret
   [{:char \x :visible false}
    {:char \y :visible true}
    {:char \z :visible false}])
-
 
 (deftest hangman-test
   (testing "Random element"
     ;; (doseq [i (range 10)]
     (pick-random-element ["abc" "bde"]))
 
-  (testing "Mask"
-    (is (= (secret-string sample-secret) "_y_")))
-
   (testing "Non chars are visible straight away"
     (let [with-hyphen (initialize-struct "abc'")
           string (secret-string with-hyphen)]
-      (is (= string "___'"))))
-  
-  (testing "Generation"
-    (let [sample (gen-string (str/split-lines sample-dictionary) 3)]
-      (is (= "abc" sample)))))
+      (is (= string "___'")))))
 
-(deftest hangman-reveal
-  (testing "reveal simple"
-    (is (= (secret-string (reveal-letter sample-secret \x)) "xy_")))
-
-  (testing "found letter"
-    (is (false? (found? \y [{:char \x :visible false}])))
-    (is (true? (found? \x [{:char \x :visible false}]))))
-  
-  (testing "reveal is case insensitive"
-    (let [with-uppercase [{:char \X :visible false}]
-          secret-lower (secret-string (reveal-letter with-uppercase \x))]
-      (is (= "X" secret-lower)))))
 
 (defn- reset-all
   []

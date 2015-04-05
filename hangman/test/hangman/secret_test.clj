@@ -2,6 +2,12 @@
   (:require [hangman.secret :refer :all]
             [clojure.test :refer :all]))
 
+(def sample-secret
+  [{:char \x :visible false}
+   {:char \y :visible true}
+   {:char \z :visible false}])
+
+
 (defn- length-current-games
   [] (count (current-games)))
 
@@ -28,3 +34,21 @@
     (let [gameid (new-game :secret "secret")
           new-string (reveal-letter gameid \s)]
       (is (= "s_____" new-string)))))
+
+(deftest secret-strings
+  (testing "mask and unmask"
+    (is (= (secret-string sample-secret) "_y_"))))
+
+(deftest hangman-reveal
+  (let [game-id (new-game :secret "xyz")]
+    (testing "reveal simple"
+      (is (= (secret-string (reveal-letter game-id \x)) "xy_")))
+
+    (testing "found letter"
+      (is (false? (found? \y [{:char \x :visible false}])))
+      (is (true? (found? \x [{:char \x :visible false}]))))
+    
+    (testing "reveal is case insensitive"
+      (let [with-uppercase [{:char \X :visible false}]
+            secret-lower (secret-string (reveal-letter with-uppercase \x))]
+        (is (= "X" secret-lower))))))

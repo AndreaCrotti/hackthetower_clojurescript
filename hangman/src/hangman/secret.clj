@@ -71,6 +71,12 @@
    (for [i word]
      {:char i :visible (not (valid-char i))})))
 
+(defn found?
+  [game-id letter]
+  (let [current-struct (get @live-games game-id)
+        founds (filter #(and (= letter (:char %)) (false? (:visible %))) current-struct)]
+    (not (empty? founds))))
+
 ;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
   "Create a new game and store it in the ref"
