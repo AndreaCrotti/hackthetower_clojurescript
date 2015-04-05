@@ -30,21 +30,32 @@
 
 (reset-games)
 
-(defn reveal-letter
-  "Modify the given name id by changing a letter"
-  [game-id letter]
-  ())
-
-
 (defn secret-string
   "Join the secret string structure marking hidden chars as _"
   [secret]
   (str/join (map #(if (:visible %) (:char %) \_) secret)))
 
+;TODO: get and set might instead be stacks, and always taking the last
+;element in the list, so we are not losing any information
 (defn get-secret
   "Return the secret string for the given game id"
-  [gameid]
-  (secret-string (get @live-games gameid)))
+  [game-id]
+  (secret-string (get @live-games game-id)))
+
+(defn set-secret
+  "Set the secret for a given name"
+  [game-id secret-struct]
+  (dosync
+     (alter live-games (fn [d] (assoc d game-id secret-struct)))))
+
+(defn reveal-letter
+  "Modify the given name id by changing a letter"
+  [game-id letter]
+  (let [current (get @live-games game-id)
+        new-struct (map (partial filter-char letter) current)]
+    (set-secret game-id new-struct)
+    (get-secret game-id)))
+
 
 (defn uuid
   "Get a new random UUID that represents a given name"
@@ -71,8 +82,7 @@
   (let [new-game-id (uuid)
         new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
         new-secret-struct (initialize-struct new-secret)]
-    (dosync
-     (alter live-games #(assoc % new-game-id new-secret)))
+    (set-secret new-game-id new-secret-struct)
     new-game-id))
 
 
