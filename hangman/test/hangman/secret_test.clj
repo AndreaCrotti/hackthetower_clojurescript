@@ -35,11 +35,11 @@
           new-string (reveal-letter gameid \s)]
       (is (= "s_____" new-string)))))
 
-(deftest secret-strings
+(deftest secret-strings-test
   (testing "mask and unmask"
     (is (= (secret-string sample-secret) "_y_"))))
 
-(deftest hangman-reveal
+(deftest secret-reveal-test
   (let [game-id (new-game :secret "xyz")]
     (testing "reveal simple"
       (is (= (secret-string (reveal-letter game-id \x)) "xy_")))
