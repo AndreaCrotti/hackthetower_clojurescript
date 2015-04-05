@@ -3,11 +3,6 @@
             [clojure.string :as str]
             [hangman.hangman :refer :all]))
 
-(def sample-secret
-  [{:char \x :visible false}
-   {:char \y :visible true}
-   {:char \z :visible false}])
-
 (deftest hangman-test
   (testing "Random element"
     ;; (doseq [i (range 10)]
