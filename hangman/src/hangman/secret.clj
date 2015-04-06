@@ -24,6 +24,11 @@
 
 (reset-games)
 
+(defn- snapshot
+  "Get the last situation for the given game-id"
+  [game-id]
+  (first (get @live-games game-id)))
+
 (defn secret-string
   "Join the secret string structure marking hidden chars as _"
   [secret]
@@ -34,19 +39,27 @@
 (defn get-secret
   "Return the secret string for the given game id"
   [game-id]
-  (secret-string (get @live-games game-id)))
+  (secret-string (:struct (snapshot game-id))))
 
 (defn set-secret
   "Set the secret for a given name"
-  [game-id secret-struct]
+  [game-id game-struct]
   (dosync
-     (alter live-games (fn [d] (assoc d game-id secret-struct)))))
+   (alter live-games
+          (fn
+            [d] (assoc d game-id (conj (get d game-id) game-struct))))))
+
+(defn update-struct
+  [game-struct letter]
+  {:struct (map (partial filter-char letter) (:struct game-struct))
+   :seen (conj (:seen game-struct) letter)})
 
 (defn reveal-letter
   "Modify the given name id by changing a letter"
   [game-id letter]
-  (let [current (get @live-games game-id)
-        new-struct (map (partial filter-char letter) current)]
+  (let [current (snapshot game-id)
+        new-struct (update-struct current letter)]
+
     (set-secret game-id new-struct)
     (get-secret game-id)))
 
@@ -67,15 +80,22 @@
 (defn initialize-struct
   [word]
   ;TODO: is using a vec really necesary?
-  (vec
-   (for [i word]
-     {:char i :visible (not (valid-char i))})))
+  (let [struct
+        (vec
+         (for [i word]
+           {:char i :visible (not (valid-char i))}))]
+    {:seen #{} :struct struct}))
 
 (defn found?
   [game-id letter]
   (let [current-struct (get @live-games game-id)
         founds (filter #(and (= letter (:char %)) (false? (:visible %))) current-struct)]
     (not (empty? founds))))
+
+(defn seen?
+  "Check if the given char is already seen or not"
+  [game-id letter]
+  (contains? (:seen (get @live-games game-id)) letter))
 
 ;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
@@ -84,6 +104,8 @@
   (let [new-game-id (uuid)
         new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
         new-secret-struct (initialize-struct new-secret)]
+
+    ; using a list for the secret structure so it can be extended easily
     (set-secret new-game-id new-secret-struct)
     new-game-id))
 

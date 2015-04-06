@@ -2,11 +2,6 @@
   (:require [hangman.secret :refer :all]
             [clojure.test :refer :all]))
 
-(def sample-secret
-  [{:char \x :visible false}
-   {:char \y :visible true}
-   {:char \z :visible false}])
-
 
 (defn- length-current-games
   [] (count (current-games)))
@@ -21,6 +16,10 @@
     (is (pos? (count (uuid))))))
 
 (deftest initialize-test
+  (testing "new structure shape"
+    (let [my-struct (initialize-struct "abc")]
+      (is (= my-struct {:seen #{} :struct [{:char \a :visible false} {:char \b :visible false} {:char \c :visible false}]}))))
+
   (testing "Non chars are visible straight away"
     (let [with-hyphen (initialize-struct "abc'")
           string (secret-string with-hyphen)]
@@ -35,8 +34,12 @@
       (is (= desired (get-secret game-id))))))
 
 (deftest secret-strings-test
-  (testing "mask and unmask"
-    (is (= (secret-string sample-secret) "_y_"))))
+  (let [sample-secret [{:char \x :visible false}
+                       {:char \y :visible true}
+                       {:char \z :visible false}]]
+
+        (testing "mask and unmask"
+          (is (= (secret-string sample-secret) "_y_")))))
 
 (deftest secret-reveal-test
   (testing "reveal letter returns new string"
@@ -52,6 +55,12 @@
     (let [game-id (new-game :secret "secret")]
       (is (false? (found? game-id \y)))
       (is (true? (found? game-id \s)))))
+
+  (testing "revealing add to seen letters"
+    (let [game-id (new-game :secret "secret")]
+      (reveal-letter game-id \s)
+      (is (= "s_____" (secret-string game-id))
+      (is (true? (seen? game-id \s))))))
   
   (testing "reveal is case insensitive"
     (let [game-id (new-game :secret "Hello")
