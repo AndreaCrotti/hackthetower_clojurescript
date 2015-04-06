@@ -15,7 +15,8 @@
 (deftest move-test
   (testing "set up and do a move"
     ;TODO: should this be done as call as well??
-    (initialize-word "abc")
-    (let [response (app (mock/request :post "/move" {:letter \a}))]
+    (let [game-id (:body (initialize-word "abc"))
+          response (app (mock/request :post "/move" {:letter \a :game-id game-id}))]
+
       (is (= (:status response) 200))
       (is (= (:body response) "a__")))))

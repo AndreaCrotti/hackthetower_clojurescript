@@ -3,32 +3,28 @@
             [compojure.route :as route]
             [clojure.data.json :as json]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
-            [hangman.hangman :as hang]
             [hangman.secret :as secret]))
 
 (defn move-api
-  [letter]
+  [params]
   "Move and return a JSON response to the client"
-  ;; (println "Got letter " letter " to change with type " (class letter))
-  (hang/move letter)
-  {:status 200})
-  ;; {:status 200 :body (hang/secret-string @hang/masked-word)})
+  (let [game-id (:game-id params)
+        letter (nth (:letter params) 0)]
+
+    {:status 200 :body (secret/reveal-letter game-id letter)}))
 
 (defn initialize-word
   "Initiaiize a random word"
   ([]
-   (do
-     (secret/set-secret 10)
-     {:status 201}))
+   {:status 201 :body (secret/new-game)})
   ([secret]
-   (secret/set-secret secret)
-   {:status 201}))
+   {:status 201 :body (secret/new-game :secret secret)}))
 
 (defroutes app-routes
   (GET "/" [] "No need to restart the server every time")
-  (GET "/status" [] {:status 200})
+  (GET "/status" [game-id] {:status 200 :body (secret/get-secret game-id)})
   (POST "/initialize" [] (initialize-word))
-  (POST "/move" params  (move-api (nth (:letter (:params params)) 0)))
+  (POST "/move" params  (move-api (:params params)))
   (route/not-found "Not found"))
 
 (def app
