@@ -1,5 +1,6 @@
 (ns hangman.secret
   (:require [clojure.string :as str]
+            [clojure.set :as set]
             [hangman.wordgen :as wordgen]))
 
 ;TODO: is there a nicer way to do this?like defonce?
@@ -70,7 +71,7 @@
 
 (defn available-letters
   [game-id]
-  )
+  (set/difference (set all-chars) (:seen (snapshot game-id))))
 
 (defn initialize-struct
   "Initialize an empty strurcture with no seen letters and a given structure"
@@ -131,4 +132,4 @@
   [game-id]
   ;TODO: find a way to avoid the nil poisoining
   ;this would evaluate to true if the game given is nil
-  (every? :visible (get-secret game-id)))
+  (every? :visible (:struct (snapshot game-id))))

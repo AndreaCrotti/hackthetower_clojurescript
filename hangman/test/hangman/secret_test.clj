@@ -15,10 +15,20 @@
   (testing "uuid-generation-is-string"
     (is (pos? (count (uuid))))))
 
+(deftest available-chars-test
+  (testing "available chars shrinks"
+    (let [game-id (new-game :secret "hello")]
+      (is (= (count (available-letters game-id)) 26))
+      (reveal-letter game-id \h)
+      (is (= (count (available-letters game-id)) 25)))))
+
 (deftest initialize-test
   (testing "new structure shape"
-    (let [my-struct (initialize-struct "abc")]
-      (is (= my-struct {:attempts 0 :seen #{} :struct [{:char \a :visible false} {:char \b :visible false} {:char \c :visible false}]}))))
+    (let [my-struct (initialize-struct "abc")
+          desired {:attempts 0
+                   :seen #{}
+                   :struct [{:char \a :visible false} {:char \b :visible false} {:char \c :visible false}]}]
+      (is (= my-struct desired))))
 
   (testing "Non chars are visible straight away"
     (let [with-hyphen (initialize-struct "abc'")
