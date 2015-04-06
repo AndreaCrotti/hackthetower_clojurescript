@@ -28,7 +28,7 @@
 (deftest updating-structure-test
   (testing "Updated existing structure"
     (let [my-struct (initialize-struct "abc")
-          new-struct (update-struct my-struct \a)]
+          new-struct (update-struct my-struct \a true)]
       (is (true? (contains? (:seen new-struct) \a))))))
 
 (deftest game-setter-and-getter-test
@@ -65,9 +65,15 @@
   (testing "revealing add to seen letters"
     (let [game-id (new-game :secret "secret")]
       (reveal-letter game-id \s)
-      (is (= 1 (attempts game-id)))
       (is (= "s_____" (get-secret game-id)))
       (is (true? (seen? game-id \s)))))
+
+  (testing "reveal modifies attempts"
+    (let [game-id (new-game :secret "secrets")]
+      (reveal-letter game-id \s)
+      (is (= 0 (attempts game-id)))
+      (reveal-letter game-id \x)
+      (is (= 1 (attempts game-id)))))
   
   (testing "reveal is case insensitive"
     (let [game-id (new-game :secret "Hello")

@@ -50,19 +50,10 @@
 
 (defn update-struct
   "Update the structure and return a new one"
-  [game-struct letter]
+  [game-struct letter found]
   {:struct (map (partial filter-char letter) (:struct game-struct))
    :seen (conj (:seen game-struct) letter)
-   :attempts (inc (:attempts game-struct))})
-
-(defn reveal-letter
-  "Modify the given name id by changing a letter"
-  [game-id letter]
-  (let [current (snapshot game-id)
-        new-struct (update-struct current letter)]
-
-    (set-secret game-id new-struct)
-    (get-secret game-id)))
+   :attempts (if-not found (inc (:attempts game-struct)) (:attempts game-struct))})
 
 (defn uuid
   "Get a new random UUID that represents a given name"
@@ -102,6 +93,16 @@
   "Check if the given char is already seen or not"
   [game-id letter]
   (contains? (-> game-id snapshot :seen) letter))
+
+(defn reveal-letter
+  "Modify the given name id by changing a letter"
+  [game-id letter]
+  (let [current (snapshot game-id)
+        is-found (found? game-id letter)
+        new-struct (update-struct current letter is-found)]
+
+    (set-secret game-id new-struct)
+    (get-secret game-id)))
 
 ;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
