@@ -18,8 +18,4 @@
   (testing "move changes available letters"
     (reset-all)
     (is (true? (move \a)))
-    (is (= @seen-letters #{\a})))
-
-  (testing "game over"
-    (let [secret-struct [{:char \x :visible true}]]
-      (is (true? (game-over secret-struct))))))
+    (is (= @seen-letters #{\a}))))
