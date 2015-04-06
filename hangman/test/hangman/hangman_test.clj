@@ -3,16 +3,6 @@
             [clojure.string :as str]
             [hangman.hangman :refer :all]))
 
-(deftest hangman-test
-  (testing "Random element"
-    ;; (doseq [i (range 10)]
-    (pick-random-element ["abc" "bde"]))
-
-  (testing "Non chars are visible straight away"
-    (let [with-hyphen (initialize-struct "abc'")
-          string (secret-string with-hyphen)]
-      (is (= string "___'")))))
-
 
 (defn- reset-all
   []

@@ -20,6 +20,12 @@
   (testing "uuid-generation-is-string"
     (is (pos? (count (uuid))))))
 
+(deftest initialize-test
+  (testing "Non chars are visible straight away"
+    (let [with-hyphen (initialize-struct "abc'")
+          string (secret-string with-hyphen)]
+      (is (= string "___'")))))
+
 (deftest game-setter-and-getter-test
   (testing "create game with given string"
     (reset-games)
@@ -51,3 +57,8 @@
       (let [with-uppercase [{:char \X :visible false}]
             secret-lower (secret-string (reveal-letter with-uppercase \x))]
         (is (= "X" secret-lower))))))
+
+(deftest game-status-test
+  (testing "game over is over"
+    (let [secret-struct [{:char \x :visible true}]]
+      (is (true? (game-over secret-struct))))))

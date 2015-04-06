@@ -91,3 +91,11 @@
 (defn current-games
   "Return a list of currently active games"
   [] (keys @live-games))
+
+
+(defn game-over
+  "Return true if the given game is over"
+  [game-id]
+  ;TODO: find a way to avoid the nil poisoining
+  ;this would evaluate to true if the game given is nil
+  (every? :visible (get-secret game-id)))
