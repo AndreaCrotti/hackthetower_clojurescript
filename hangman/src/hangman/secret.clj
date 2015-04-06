@@ -46,8 +46,7 @@
   [game-id game-struct]
   (dosync
    (alter live-games
-          (fn
-            [d] (assoc d game-id (conj (get d game-id) game-struct))))))
+          (fn [d] (assoc d game-id (conj (get d game-id) game-struct))))))
 
 (defn update-struct
   [game-struct letter]
@@ -62,7 +61,6 @@
 
     (set-secret game-id new-struct)
     (get-secret game-id)))
-
 
 (defn uuid
   "Get a new random UUID that represents a given name"

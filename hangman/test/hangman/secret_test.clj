@@ -25,6 +25,12 @@
           string (secret-string (:struct with-hyphen))]
       (is (= string "___'")))))
 
+(deftest updating-structure-test
+  (testing "Updated existing structure"
+    (let [my-struct (initialize-struct "abc")
+          new-struct (update-struct my-struct \a)]
+      (is (true? (contains? (:seen new-struct) \a))))))
+
 (deftest game-setter-and-getter-test
   (testing "create game with given string"
     (reset-games)
@@ -38,8 +44,8 @@
                        {:char \y :visible true}
                        {:char \z :visible false}]]
 
-        (testing "mask and unmask"
-          (is (= (secret-string sample-secret) "_y_")))))
+    (testing "mask and unmask"
+      (is (= (secret-string sample-secret) "_y_")))))
 
 (deftest secret-reveal-test
   (testing "reveal letter returns new string"
@@ -60,7 +66,7 @@
     (let [game-id (new-game :secret "secret")]
       (reveal-letter game-id \s)
       (is (= "s_____" (get-secret game-id))
-      (is (true? (seen? game-id \s))))))
+          (is (true? (seen? game-id \s))))))
   
   (testing "reveal is case insensitive"
     (let [game-id (new-game :secret "Hello")
