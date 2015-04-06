@@ -22,7 +22,7 @@
 
   (testing "Non chars are visible straight away"
     (let [with-hyphen (initialize-struct "abc'")
-          string (secret-string with-hyphen)]
+          string (secret-string (:struct with-hyphen))]
       (is (= string "___'")))))
 
 (deftest game-setter-and-getter-test
@@ -59,7 +59,7 @@
   (testing "revealing add to seen letters"
     (let [game-id (new-game :secret "secret")]
       (reveal-letter game-id \s)
-      (is (= "s_____" (secret-string game-id))
+      (is (= "s_____" (get-secret game-id))
       (is (true? (seen? game-id \s))))))
   
   (testing "reveal is case insensitive"

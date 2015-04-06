@@ -78,24 +78,25 @@
   (contains? (set all-chars) char))
 
 (defn initialize-struct
+  "Initialize an empty strurcture with no seen letters and a given structure"
   [word]
-  ;TODO: is using a vec really necesary?
   (let [struct
         (vec
          (for [i word]
            {:char i :visible (not (valid-char i))}))]
+
     {:seen #{} :struct struct}))
 
 (defn found?
   [game-id letter]
-  (let [current-struct (get @live-games game-id)
+  (let [current-struct (-> game-id snapshot :struct)
         founds (filter #(and (= letter (:char %)) (false? (:visible %))) current-struct)]
     (not (empty? founds))))
 
 (defn seen?
   "Check if the given char is already seen or not"
   [game-id letter]
-  (contains? (:seen (get @live-games game-id)) letter))
+  (contains? (-> game-id snapshot :seen) letter))
 
 ;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
