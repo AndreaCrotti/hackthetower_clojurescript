@@ -30,12 +30,15 @@
 
 (defn game-loop
   "Main loop of the game"
-  [limit & {:keys [attempt] :or {attempt 0}}]
+  [limit]
   (if (game-over @game-id)
     (println "Congratulations, You won!")
     (if (= limit (attempts @game-id))
       (println "Game over sorry")
-      (reveal-letter @game-id (get-letter)))))
+      (do
+        (let [new-secret (reveal-letter @game-id (get-letter))]
+          (println "at attempt " (attempts @game-id) " the secret is " new-secret)
+          (game-loop limit))))))
 
 (def cli-options
   ;; An option with a required argument
@@ -67,4 +70,4 @@
         current-game-id (new-game :secret (wordgen/gen-string wordgen/all-words length))]
     
     (reset! game-id current-game-id)
-    (game-loop attempts :attempt 0)))
+    (game-loop attempts)))
