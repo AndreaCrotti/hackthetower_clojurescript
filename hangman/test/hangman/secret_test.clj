@@ -18,7 +18,7 @@
 (deftest initialize-test
   (testing "new structure shape"
     (let [my-struct (initialize-struct "abc")]
-      (is (= my-struct {:seen #{} :struct [{:char \a :visible false} {:char \b :visible false} {:char \c :visible false}]}))))
+      (is (= my-struct {:attempts 0 :seen #{} :struct [{:char \a :visible false} {:char \b :visible false} {:char \c :visible false}]}))))
 
   (testing "Non chars are visible straight away"
     (let [with-hyphen (initialize-struct "abc'")
@@ -65,8 +65,9 @@
   (testing "revealing add to seen letters"
     (let [game-id (new-game :secret "secret")]
       (reveal-letter game-id \s)
-      (is (= "s_____" (get-secret game-id))
-          (is (true? (seen? game-id \s))))))
+      (is (= 1 (attempts game-id)))
+      (is (= "s_____" (get-secret game-id)))
+      (is (true? (seen? game-id \s)))))
   
   (testing "reveal is case insensitive"
     (let [game-id (new-game :secret "Hello")

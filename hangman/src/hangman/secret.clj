@@ -49,9 +49,11 @@
           (fn [d] (assoc d game-id (conj (get d game-id) game-struct))))))
 
 (defn update-struct
+  "Update the structure and return a new one"
   [game-struct letter]
   {:struct (map (partial filter-char letter) (:struct game-struct))
-   :seen (conj (:seen game-struct) letter)})
+   :seen (conj (:seen game-struct) letter)
+   :attempts (inc (:attempts game-struct))})
 
 (defn reveal-letter
   "Modify the given name id by changing a letter"
@@ -83,7 +85,12 @@
          (for [i word]
            {:char i :visible (not (valid-char i))}))]
 
-    {:seen #{} :struct struct}))
+    {:seen #{} :struct struct :attempts 0}))
+
+(defn attempts
+  "Return number of attempts done in this game"
+  [game-id]
+  (:attempts (snapshot game-id)))
 
 (defn found?
   [game-id letter]
