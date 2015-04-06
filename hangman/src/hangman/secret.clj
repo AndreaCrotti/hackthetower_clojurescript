@@ -53,7 +53,7 @@
   [game-struct letter found]
   {:struct (map (partial filter-char letter) (:struct game-struct))
    :seen (conj (:seen game-struct) letter)
-   :attempts (if-not found (inc (:attempts game-struct)) (:attempts game-struct))})
+   :attempts (if-not found (inc (:attempts game-struct)) (:attempts game-struct))}) ;TODO: a better way to do this?
 
 (defn uuid
   "Get a new random UUID that represents a given name"
@@ -67,6 +67,10 @@
   "Check if the char given is valid or not"
   [char]
   (contains? (set all-chars) char))
+
+(defn available-letters
+  [game-id]
+  )
 
 (defn initialize-struct
   "Initialize an empty strurcture with no seen letters and a given structure"

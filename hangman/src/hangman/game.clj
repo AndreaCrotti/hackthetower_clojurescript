@@ -6,24 +6,21 @@
             [clojure.set :as set]))
 
 
-;TODO: try out some other strategies likes
 (defn get-letter
-  []
-  )
-  ;; (let [valid-chars (set/difference (set all-chars) @seen-letters)]
-  ;;   (println
-  ;;    (format "What letter you want to reveal? Possible choices = %s" (clojure.string/join " " valid-chars)))
-  ;;   (let [user-input (read-line)]
-  ;;     (if (> (count user-input) 1)
-  ;;       (do
-  ;;         (println "Input too log")
-  ;;         (get-letter))
-  ;;       (let [char (nth user-input 0)]
-  ;;         (if (contains? valid-chars char)
-  ;;           char
-  ;;           (do
-  ;;             (println "Not a valid choice")
-  ;;             (get-letter))))))))
+  [game-id]
+  (let [valid-chars (available-letters game-id)]
+    (println "What letter you want to reveal? Possible choices = %s" (clojure.string/join " " valid-chars))
+    (let [user-input (read-line)]
+      (if (> (count user-input) 1)
+        (do
+          (println "Input too log")
+          (get-letter game-id))
+        (let [char (nth user-input 0)]
+          (if (contains? valid-chars char)
+            char
+            (do
+              (println "Not a valid choice")
+              (get-letter game-id))))))))
 
 
 (defn game-loop
@@ -61,8 +58,8 @@
   "Application main function"
   [& args]
   (let [options (parse-opts args cli-options)
-        length (:length (:options options))
-        attempts (:attempt (:options options))]
+        length (-> options :options :length)]
+    
     (set-secret length)
     (game-loop attempts :attempt 0)))
 
