@@ -29,34 +29,34 @@
 (deftest game-setter-and-getter-test
   (testing "create game with given string"
     (reset-games)
-    (let [gameid (new-game :secret "secret")
+    (let [game-id (new-game :secret "secret")
           desired (clojure.string/join "" (repeat (count "secret") \_))]
       (is (= 1 (length-current-games)))
-      (is (= desired (get-secret gameid))))))
+      (is (= desired (get-secret game-id))))))
 
 (deftest secret-strings-test
   (testing "mask and unmask"
     (is (= (secret-string sample-secret) "_y_"))))
 
 (deftest secret-reveal-test
-  (let [game-id (new-game :secret "xyz")]
-    (testing "reveal letter returns new string"
-      (reset-games)
-      (let [gameid (new-game :secret "secret")
-            new-string (reveal-letter gameid \s)]
-        (is (= "s_____" new-string))))
+  (testing "reveal letter returns new string"
+    (let [game-id (new-game :secret "secret")
+          new-string (reveal-letter game-id \s)]
+      (is (= "s_____" new-string))))
+  
+  (testing "reveal simple"
+    (let [game-id (new-game :secret "xyz")]
+      (is (= (reveal-letter game-id \x) "x__"))))
 
-    (testing "reveal simple"
-      (is (= (secret-string (reveal-letter game-id \x)) "xy_")))
-
-    (testing "found letter"
-      (is (false? (found? \y [{:char \x :visible false}])))
-      (is (true? (found? \x [{:char \x :visible false}]))))
-    
-    (testing "reveal is case insensitive"
-      (let [with-uppercase [{:char \X :visible false}]
-            secret-lower (secret-string (reveal-letter with-uppercase \x))]
-        (is (= "X" secret-lower))))))
+  (testing "found letter"
+    (let [game-id (new-game :secret "secret")]
+      (is (false? (found? game-id \y)))
+      (is (true? (found? game-id \s)))))
+  
+  (testing "reveal is case insensitive"
+    (let [game-id (new-game :secret "Hello")
+          secret-lower (reveal-letter game-id \h)]
+      (is (= "H____" secret-lower)))))
 
 (deftest game-status-test
   (testing "game over is over"

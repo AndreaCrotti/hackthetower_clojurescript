@@ -2,39 +2,41 @@
 (ns hangman.game
   (:gen-class :main true)
   (:require [clojure.tools.cli :refer [parse-opts]]
-            [hangman.hangman :refer :all]
+            [hangman.secret :refer :all]
             [clojure.set :as set]))
 
 
 ;TODO: try out some other strategies likes
 (defn get-letter
   []
-  (let [valid-chars (set/difference (set all-chars) @seen-letters)]
-    (println
-     (format "What letter you want to reveal? Possible choices = %s" (clojure.string/join " " valid-chars)))
-    (let [user-input (read-line)]
-      (if (> (count user-input) 1)
-        (do
-          (println "Input too log")
-          (get-letter))
-        (let [char (nth user-input 0)]
-          (if (contains? valid-chars char)
-            char
-            (do
-              (println "Not a valid choice")
-              (get-letter))))))))
+  )
+  ;; (let [valid-chars (set/difference (set all-chars) @seen-letters)]
+  ;;   (println
+  ;;    (format "What letter you want to reveal? Possible choices = %s" (clojure.string/join " " valid-chars)))
+  ;;   (let [user-input (read-line)]
+  ;;     (if (> (count user-input) 1)
+  ;;       (do
+  ;;         (println "Input too log")
+  ;;         (get-letter))
+  ;;       (let [char (nth user-input 0)]
+  ;;         (if (contains? valid-chars char)
+  ;;           char
+  ;;           (do
+  ;;             (println "Not a valid choice")
+  ;;             (get-letter))))))))
 
 
 (defn game-loop
   [limit & {:keys [attempt] :or {attempt 0}}]
-  (if (game-over @masked-word)
-    (println "Congratulations, You won!")
-    (if (= limit attempt)
-      (println "Sorry no more attempts, the secret word was" @secret-word)
-      (do
-        (let [new-attempt (if (not (move (get-letter))) (inc attempt) attempt)]
-          (println (format "At attempt %d now word is %s" new-attempt (secret-string @masked-word)))
-          (game-loop limit :attempt new-attempt))))))
+  )
+  ;; (if (game-over @masked-word)
+  ;;   (println "Congratulations, You won!")
+  ;;   (if (= limit attempt)
+  ;;     (println "Sorry no more attempts, the secret word was" @secret-word)
+  ;;     (do
+  ;;       (let [new-attempt (if (not (move (get-letter))) (inc attempt) attempt)]
+  ;;         (println (format "At attempt %d now word is %s" new-attempt (secret-string @masked-word)))
+  ;;         (game-loop limit :attempt new-attempt))))))
 
 (def cli-options
   ;; An option with a required argument

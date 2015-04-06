@@ -13,8 +13,8 @@
   [letter]
   (dosync (alter seen-letters conj letter))
   ;; (swap! seen-letters conj letter)
-  (let [changed (found? letter @masked-word)]
+  (let [changed (secret/found? letter @masked-word)]
     (when changed
       (dosync
-       (ref-set masked-word (reveal-letter @masked-word letter))))
+       (ref-set masked-word (secret/reveal-letter @masked-word letter))))
     changed))
