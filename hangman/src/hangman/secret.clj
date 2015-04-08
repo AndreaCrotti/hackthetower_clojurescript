@@ -86,7 +86,7 @@
 (defn attempts
   "Return number of attempts done in this game"
   [game-id]
-  (:attempts (snapshot game-id)))
+  (-> game-id snapshot :attempts))
 
 (defn found?
   [game-id letter]
@@ -114,7 +114,7 @@
   "Create a new game and store it in the ref"
   [& {:keys [secret]}]
   (let [new-game-id (uuid)
-        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
+        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret) ; this if can be moved in the pattern matching above?
         new-secret-struct (initialize-struct new-secret)]
 
     ; using a list for the secret structure so it can be extended easily
@@ -132,4 +132,4 @@
   [game-id]
   ;TODO: find a way to avoid the nil poisoining
   ;this would evaluate to true if the game given is nil
-  (every? :visible (:struct (snapshot game-id))))
+  (every? :visible (-> game-id snapshot :struct)))
