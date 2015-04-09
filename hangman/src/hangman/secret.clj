@@ -54,7 +54,7 @@
   [game-struct letter found]
   {:struct (map (partial filter-char letter) (:struct game-struct))
    :seen (conj (:seen game-struct) letter)
-   :attempts (if-not found (inc (:attempts game-struct)) (:attempts game-struct))}) ;TODO: a better way to do this?
+   :attempts (if-not found (-> game-struct :attempts inc) (-> game-struct :attempts))}) ;TODO: a better way to do this?
 
 (defn uuid
   "Get a new random UUID that represents a given name"
