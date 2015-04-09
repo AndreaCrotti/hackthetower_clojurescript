@@ -1,6 +1,10 @@
 # hackthetower_clojurescript
 clojurescript fun
 
+# Features
+
+- concurrent games
+
 # TODO
 - ring-swagger support
 - schema support for validation
@@ -8,7 +12,6 @@ clojurescript fun
 - Clojurescript page with OM/React/Reagent?
 - multi user authentication
 - find graphics
-- use an agent or some coordinated refs to change all the mutable state in an atomic way
 
 # Other ideas
 
