@@ -15,6 +15,7 @@
                  [quil "2.2.5"]
                  [compojure "1.3.2"]
                  [environ "1.0.0"]
+                 [slamhound "1.5.5"]
                  [org.clojure/tools.cli "0.3.1"]
                  [org.clojure/data.json "0.2.5"]
                  [ring/ring-defaults "0.1.2"]

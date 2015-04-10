@@ -1,5 +1,6 @@
-# hackthetower_clojurescript
-clojurescript fun
+# Hangman
+
+Hangman backend implementation
 
 # Features
 
