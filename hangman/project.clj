@@ -11,6 +11,8 @@
                  [metosin/ring-swagger "0.19.1"]
                  [metosin/ring-swagger-ui "2.1.8-M1"]
                  [metosin/ring-http-response "0.6.1"]
+                 [jarohen/phoenix "0.1.1"]
+                 [com.stuartsierra/component "0.2.3"]
                  [play-clj "0.4.5"]
                  [compojure "1.3.2"]
                  [environ "1.0.0"]
