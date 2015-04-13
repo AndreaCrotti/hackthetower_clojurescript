@@ -7,19 +7,22 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.6.0"]
+                 [http-kit "2.1.16"]
+                 [hiccup "1.0.5"]
+                 [clj-tagsoup "0.3.0"]
                  [org.clojure/java.jdbc "0.3.6"]
-                 [metosin/ring-swagger "0.19.1"]
+                 [metosin/ring-swagger "0.19.4"]
                  [metosin/ring-swagger-ui "2.1.8-M1"]
                  [metosin/ring-http-response "0.6.1"]
                  [jarohen/phoenix "0.1.1"]
                  [com.stuartsierra/component "0.2.3"]
-                 [play-clj "0.4.5"]
-                 [compojure "1.3.2"]
+                 [play-clj "0.4.6"]
+                 [compojure "1.3.3"]
                  [environ "1.0.0"]
                  [slamhound "1.5.5"]
                  [org.clojure/tools.cli "0.3.1"]
-                 [org.clojure/data.json "0.2.5"]
-                 [ring/ring-defaults "0.1.2"]
+                 [org.clojure/data.json "0.2.6"]
+                 [ring/ring-defaults "0.1.4"]
                  ;TODO: add postgres and datomic
                  [org.xerial/sqlite-jdbc "3.8.7"]]
   
