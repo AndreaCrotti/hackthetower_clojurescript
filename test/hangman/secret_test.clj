@@ -2,13 +2,17 @@
   (:require [hangman.secret :refer :all]
             [clojure.test :refer :all]))
 
+(defn resetting-game [f]
+  (reset-games!)
+  (f))
+
+(use-fixtures :each resetting-game)
 
 (defn- length-current-games
   [] (count (current-games)))
 
 (deftest uuid-test
   (testing "create new game"
-    (reset-games)
     (new-game)
     (is (= 1 (length-current-games))))
 
@@ -43,7 +47,6 @@
 
 (deftest game-setter-and-getter-test
   (testing "create game with given string"
-    (reset-games)
     (let [game-id (new-game :secret "secret")
           desired (clojure.string/join "" (repeat (count "secret") \_))]
       (is (= 1 (length-current-games)))

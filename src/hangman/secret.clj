@@ -3,11 +3,11 @@
             [clojure.set :as set]
             [hangman.wordgen :as wordgen]))
 
-(defn reset-games
+(defn reset-games!
   []
   (def live-games (ref {})))
 
-(reset-games)
+(reset-games!)
 
 ;TODO: should this be in util somehow?
 (defn lowercase-char
