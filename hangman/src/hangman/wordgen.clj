@@ -4,7 +4,7 @@
 
 ;TODO: this could be more configurable
 
-(def dictionary-file "/usr/share/dict/british")
+(def dictionary-file "src/hangman/british")
 (def all-words (str/split-lines (slurp dictionary-file)))
 
 (defn gen-string
