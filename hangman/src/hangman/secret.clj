@@ -14,7 +14,7 @@
   ;TODO: this seems quite hacky can it be improved?
   (-> (str char)
       .toLowerCase
-      (nth 0))
+      (nth 0)))
 
 ;TODO: is there a way to print out the current variables in the given function?
 (defn filter-char
