@@ -3,7 +3,6 @@
             [clojure.set :as set]
             [hangman.wordgen :as wordgen]))
 
-;TODO: is there a nicer way to do this?like defonce?
 (defn reset-games
   []
   (def live-games (ref {})))
@@ -13,17 +12,14 @@
 ;TODO: should this be in util somehow?
 (defn lowercase-char
   [char]
-  ;TODO: this seems quite hacky can it be improved?
   (-> (str char)
       .toLowerCase
       (nth 0)))
 
-;TODO: is there a way to print out the current variables in the given function?
 (defn filter-char
   [letter el]
   (let [to-find (lowercase-char letter)]
     (if (= (lowercase-char (:char el)) to-find)
-      ;TODO: is there a better way to modify this structure inline?
       {:char (:char el) :visible true}
       el)))
 
@@ -37,8 +33,6 @@
   [secret]
   (str/join (map #(if (:visible %) (:char %) \_) secret)))
 
-;TODO: get and set might instead be stacks, and always taking the last
-;element in the list, so we are not losing any information
 (defn get-secret
   "Return the secret string for the given game id"
   [game-id]
@@ -56,7 +50,7 @@
   [game-struct letter found]
   {:struct (map (partial filter-char letter) (:struct game-struct))
    :seen (conj (:seen game-struct) letter)
-   :attempts (if-not found (-> game-struct :attempts inc) (-> game-struct :attempts))}) ;TODO: a better way to do this?
+   :attempts (if-not found (-> game-struct :attempts inc) (-> game-struct :attempts))})
 
 (defn uuid
   "Get a new random UUID that represents a given name"
