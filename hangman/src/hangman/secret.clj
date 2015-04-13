@@ -12,7 +12,9 @@
 (defn lowercase-char
   [char]
   ;TODO: this seems quite hacky can it be improved?
-  (nth (seq (char-array (.toLowerCase (str char)))) 0))
+  (-> (str char)
+      .toLowerCase
+      (nth 0))
 
 ;TODO: is there a way to print out the current variables in the given function?
 (defn filter-char
@@ -114,7 +116,8 @@
   "Create a new game and store it in the ref"
   [& {:keys [secret]}]
   (let [new-game-id (uuid)
-        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret) ; this if can be moved in the pattern matching above?
+         ; this if can be moved in the pattern matching above?
+        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
         new-secret-struct (initialize-struct new-secret)]
 
     ; using a list for the secret structure so it can be extended easily
