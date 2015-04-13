@@ -1,2 +1,11 @@
-/game/node_modules/
-/hangman/db/database.db
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/

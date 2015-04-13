@@ -67,7 +67,11 @@
   [& args]
   (let [options (parse-opts args cli-options)
         length (-> options :options :length)
+        attempts (-> options :options :attempts)
         current-game-id (new-game :secret (wordgen/gen-string wordgen/all-words length))]
     
-    (reset! game-id current-game-id)
-    (game-loop attempts)))
+    (if (-> options :options :help)
+      (clojure.pprint/pprint cli-options)
+      (do
+        (reset! game-id current-game-id)
+        (game-loop attempts)))))
