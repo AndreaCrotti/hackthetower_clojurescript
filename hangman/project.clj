@@ -12,7 +12,6 @@
                  [metosin/ring-swagger-ui "2.1.8-M1"]
                  [metosin/ring-http-response "0.6.1"]
                  [play-clj "0.4.5"]
-                 [quil "2.2.5"]
                  [compojure "1.3.2"]
                  [environ "1.0.0"]
                  [slamhound "1.5.5"]
