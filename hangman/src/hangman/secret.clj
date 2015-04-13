@@ -8,6 +8,8 @@
   []
   (def live-games (ref {})))
 
+(reset-games)
+
 ;TODO: should this be in util somehow?
 (defn lowercase-char
   [char]
@@ -24,8 +26,6 @@
       ;TODO: is there a better way to modify this structure inline?
       {:char (:char el) :visible true}
       el)))
-
-(reset-games)
 
 (defn- snapshot
   "Get the last situation for the given game-id"
@@ -75,15 +75,13 @@
   [game-id]
   (set/difference (set all-chars) (:seen (snapshot game-id))))
 
+;; (mapv (fn [i] {:char i :visible (not (valid-char i))}))
 (defn initialize-struct
   "Initialize an empty strurcture with no seen letters and a given structure"
   [word]
-  (let [struct
-        (vec
-         (for [i word]
-           {:char i :visible (not (valid-char i))}))]
-
-    {:seen #{} :struct struct :attempts 0}))
+  {:seen #{}
+   :struct (mapv (fn [i] {:char i :visible (not (valid-char i))}) word)
+   :attempts 0})
 
 (defn attempts
   "Return number of attempts done in this game"
