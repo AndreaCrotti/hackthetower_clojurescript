@@ -33,10 +33,20 @@
   [secret]
   (str/join (map #(if (:visible %) (:char %) \_) secret)))
 
+(defn secret-string-initial
+  "Join the secret string structure marking hidden chars as _"
+  [secret]
+  (str/join (map #(if (:visible %) (:char %) (:char %)) secret)))
+
 (defn get-secret
   "Return the secret string for the given game id"
   [game-id]
   (secret-string (:struct (snapshot game-id))))
+
+(defn initial-secret
+  "Return the secret string for the given game id"
+  [game-id]
+  (secret-string-initial (:struct (snapshot game-id))))
 
 (defn set-secret
   "Set the secret for a given name"
@@ -103,13 +113,15 @@
     (set-secret game-id new-struct)
     (get-secret game-id)))
 
+(def word-length (delay (+ (rand-int 9) 6)))
+
 ;TODO: should this have a ! since it has a side effect as well?
 (defn new-game
   "Create a new game and store it in the ref"
   [& {:keys [secret]}]
   (let [new-game-id (uuid)
          ; this if can be moved in the pattern matching above?
-        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words 10) secret)
+        new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words @word-length) secret)
         new-secret-struct (initialize-struct new-secret)]
 
     ; using a list for the secret structure so it can be extended easily
