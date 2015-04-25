@@ -13,10 +13,10 @@
 (defn create-users-schema
   []
   (j/create-table-ddl :users
-                    [:password :text]
-                    [:username :text]))
+                      [:password :text]
+                      [:username :text]))
 
-(defn user-exist [user]
+(defn user-exists? [user]
   (let [query (format "select * from users where username='%s'" user)
         result (j/query db [query] :row-fn :cost)]
     (pos? (count result))))

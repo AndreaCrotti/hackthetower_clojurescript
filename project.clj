@@ -1,19 +1,19 @@
 (defproject hangman "0.1.0-SNAPSHOT"
   :description "Project hangman for game playing"
-  :url "http://example.cnom/FIXME"
+  :url "http://example.cnom/FIXME"  ;TODO: add correct url
   :main hangman.game
   ;TODO: check if the liecense is alright?
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   ;TODO: organize a bit better the dependencies
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7
                  [clj-jwt "0.0.13"]
                  [http-kit "2.1.19"]
                  [hiccup "1.0.5"]
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
                  [org.clojure/java.jdbc "0.3.6"]
-                 [metosin/ring-swagger "0.19.5"]
+                 [metosin/ring-swagger "0.19.6"]
                  [metosin/ring-swagger-ui "2.1.8-M1"]
                  [metosin/ring-http-response "0.6.1"]
                  [jarohen/phoenix "0.1.1"]

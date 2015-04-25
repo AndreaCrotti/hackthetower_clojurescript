@@ -2,11 +2,11 @@
   (:require [hangman.secret :refer :all]
             [clojure.test :refer :all]))
 
-(defn resetting-game [f]
+(defn reset-game-fixture! [f]
   (reset-games!)
   (f))
 
-(use-fixtures :each resetting-game)
+(use-fixtures :each reset-game-fixture!)
 
 (defn- length-current-games
   [] (count (current-games)))
@@ -16,7 +16,7 @@
     (new-game)
     (is (= 1 (length-current-games))))
 
-  (testing "uuid-generation-is-string"
+  (testing "uuid-generation-is-string"-
     (is (pos? (count (uuid))))))
 
 (deftest available-chars-test
