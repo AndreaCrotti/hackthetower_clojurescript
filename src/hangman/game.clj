@@ -8,7 +8,6 @@
 
 (def game-id (atom nil))
 
-
 ;TODO: add logging and other things
 (defn get-letter
   "Get a letter that is not already used"
@@ -16,16 +15,18 @@
   (let [valid-chars (available-letters @game-id)]
     (println "What letter you want to reveal? Possible choices = " (clojure.string/join " " valid-chars))
     (let [user-input (read-line)]
-      (if (> (count user-input) 1)
-        (do
-          (println "Input too log")
-          (get-letter))
-        (let [char (nth user-input 0)]
-          (if (contains? valid-chars char)
-            char
-            (do
-              (println "Not a valid choice")
-              (get-letter))))))))
+      (if (or (> (count user-input) 1) (< (count user-input) 1))
+         (do
+           (println "Invalid input")
+           (get-letter))
+             (let [char (nth user-input 0)]
+                (if (contains? valid-chars char)
+                 char
+                   (do
+                     (println "Not a valid choice")
+                     (get-letter))))))))
+
+
 
 
 (defn game-loop
@@ -34,7 +35,7 @@
   (if (game-over @game-id)
     (println "Congratulations, You won!")
     (if (= limit (attempts @game-id))
-      (println "Game over sorry")
+      (println "Game over sorry, the word was" (initial-secret @game-id))
       (do
         (let [new-secret (reveal-letter @game-id (get-letter))]
           (println "at attempt " (attempts @game-id) " the secret is " new-secret)
@@ -48,7 +49,7 @@
     :validate [#(pos? %) "Must be a positive number"]]
 
    ["-l" "--length LENGTH" "Random string length"
-    :default 10
+    :default @word-length
     :parse-fn #(Integer/parseInt %)
     :validate [#(pos? %) "Must be a positive number"]]
 
@@ -74,4 +75,5 @@
       (clojure.pprint/pprint cli-options)
       (do
         (reset! game-id current-game-id)
+        (println "The word is " @word-length " letters long, " (secret-string (get-secret @game-id)))
         (game-loop attempts)))))
