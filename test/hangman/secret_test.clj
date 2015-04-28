@@ -65,7 +65,7 @@
     (let [game-id (new-game :secret "secret")
           new-string (reveal-letter game-id \s)]
       (is (= "s_____" new-string))))
-  
+
   (testing "reveal simple"
     (let [game-id (new-game :secret "xyz")]
       (is (= (reveal-letter game-id \x) "x__"))))
@@ -87,7 +87,7 @@
       (is (= 0 (attempts game-id)))
       (reveal-letter game-id \x)
       (is (= 1 (attempts game-id)))))
-  
+
   (testing "reveal is case insensitive"
     (let [game-id (new-game :secret "Hello")
           secret-lower (reveal-letter game-id \h)]

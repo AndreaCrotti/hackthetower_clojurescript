@@ -26,9 +26,6 @@
                      (println "Not a valid choice")
                      (get-letter))))))))
 
-
-
-
 (defn game-loop
   "Main loop of the game"
   [limit]
@@ -70,7 +67,7 @@
         length (-> options :options :length)
         attempts (-> options :options :attempts)
         current-game-id (new-game :secret (wordgen/gen-string wordgen/all-words length))]
-    
+
     (if (-> options :options :help)
       (clojure.pprint/pprint cli-options)
       (do
