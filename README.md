@@ -1,6 +1,6 @@
 # Hangman
 
-https://travis-ci.org/AndreaCrotti/hangman.svg
+[![Build Status](https://travis-ci.org/AndreaCrotti/hangman.png)](https://travis-ci.org/AndreaCrotti/hangman)
 
 Hangman backend implementation
 
