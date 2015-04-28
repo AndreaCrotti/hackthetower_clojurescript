@@ -1,5 +1,7 @@
 # Hangman
 
+https://travis-ci.org/AndreaCrotti/hangman.svg
+
 Hangman backend implementation
 
 # Features
