@@ -15,16 +15,17 @@
   (let [valid-chars (available-letters @game-id)]
     (println "What letter you want to reveal? Possible choices = " (clojure.string/join " " valid-chars))
     (let [user-input (read-line)]
-      (if (or (> (count user-input) 1) (< (count user-input) 1))
-         (do
-           (println "Invalid input")
-           (get-letter))
-             (let [char (nth user-input 0)]
-                (if (contains? valid-chars char)
-                 char
-                   (do
-                     (println "Not a valid choice")
-                     (get-letter))))))))
+      (if-not (= (count user-input) 1)
+        (do
+          (println "Invalid input")
+          (get-letter))
+
+        (let [char (nth user-input 0)]
+          (if (contains? valid-chars char)
+            char
+            (do
+              (println "Not a valid choice")
+              (get-letter))))))))
 
 (defn game-loop
   "Main loop of the game"
