@@ -57,6 +57,9 @@
                        {:char \y :visible true}
                        {:char \z :visible false}]]
 
+    (testing "initial string"
+      (is (= (secret-string-initial sample-secret) "xyz")))
+
     (testing "mask and unmask"
       (is (= (secret-string sample-secret) "_y_")))))
 

@@ -36,7 +36,7 @@
 (defn secret-string-initial
   "Join the secret string structure marking hidden chars as _"
   [secret]
-  (str/join (map #(if (:visible %) (:char %) (:char %)) secret)))
+  (str/join (map :char secret)))
 
 (defn get-secret
   "Return the secret string for the given game id"

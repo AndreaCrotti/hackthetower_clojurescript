@@ -5,8 +5,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  ;TODO: organize a bit better the dependencies
-  :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7
+  :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7 and add core.async
                  [clj-jwt "0.0.13"]
                  [http-kit "2.1.19"]
                  [hiccup "1.0.5"]
