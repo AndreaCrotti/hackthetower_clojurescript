@@ -3,6 +3,6 @@
             [clojure.test :refer :all]))
 
 
-(deftest get-letter-test
+#_(deftest get-letter-test
   (testing "One letter should work fine"
     (is (= "a" ""))))
