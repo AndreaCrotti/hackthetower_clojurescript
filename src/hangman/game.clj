@@ -8,26 +8,28 @@
 
 (def game-id (atom nil))
 
+(defn valid-user-input? [user-input]
+  (let [valid? (= (count user-input) 1)]
+    (when (not valid?) (println "Invalid input"))
+    valid?))
+
+(defn valid-chars [] (available-letters @game-id))
+
+(defn valid-character? [character]
+  (let [valid? (contains? (valid-chars) character)]
+    (when (not valid?) (println "Not a valid choice"))
+    valid?))
+
 ;TODO: add logging and other things
 (defn get-letter
   "Get a letter that is not already used"
   []
-  (let [valid-chars (available-letters @game-id)]
-    (println "What letter you want to reveal? Possible choices = " (clojure.string/join " " valid-chars))
-    (let [user-input (read-line)]
-      (if (or (> (count user-input) 1) (< (count user-input) 1))
-         (do
-           (println "Invalid input")
-           (get-letter))
-             (let [char (nth user-input 0)]
-                (if (contains? valid-chars char)
-                 char
-                   (do
-                     (println "Not a valid choice")
-                     (get-letter))))))))
-
-
-
+    (println "What letter you want to reveal? Possible choices = " (clojure.string/join " " (valid-chars)))
+  (let [user-input (read-line)
+        character (when (valid-user-input? user-input) (nth user-input 0))]
+    (if (and (valid-user-input? user-input) (valid-character? character))
+      character
+      (get-letter))))
 
 (defn game-loop
   "Main loop of the game"
@@ -70,7 +72,7 @@
         length (-> options :options :length)
         attempts (-> options :options :attempts)
         current-game-id (new-game :secret (wordgen/gen-string wordgen/all-words length))]
-    
+
     (if (-> options :options :help)
       (clojure.pprint/pprint cli-options)
       (do
