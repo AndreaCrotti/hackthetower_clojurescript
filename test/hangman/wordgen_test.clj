@@ -19,3 +19,7 @@
   (testing "Right length"
     (let [sample (gen-string all-words 3)]
       (is (= 3 (count sample))))))
+
+(deftest suggestion-test
+  (testing "Suggest a definition"
+    ))

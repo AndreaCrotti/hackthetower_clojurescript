@@ -13,10 +13,10 @@ Hangman backend implementation
 # TODO
 - ring-swagger support
 - schema support for validation
-- deploy to Heroku
-- Clojurescript page with OM/React/Reagent?
+- deploy to Heroku, and integration with pallet
+- Clojurescript page with OM/React/Reagent?q
 - multi user authentication
-- find graphics
+- graphics with quil
 
 # Other ideas
 
