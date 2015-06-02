@@ -17,7 +17,7 @@
     (is (= 1 (length-current-games))))
 
   (testing "uuid-generation-is-string"-
-    (is (pos? (count (uuid))))))
+    (is (pos? (count (gen-uuid))))))
 
 (deftest available-chars-test
   (testing "available chars shrinks"

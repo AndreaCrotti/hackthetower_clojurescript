@@ -62,7 +62,7 @@
    :seen (conj (:seen game-struct) letter)
    :attempts (if-not found (-> game-struct :attempts inc) (-> game-struct :attempts))})
 
-(defn uuid
+(defn gen-uuid
   "Get a new random UUID that represents a given name"
   [] (str (java.util.UUID/randomUUID)))
 
@@ -119,7 +119,7 @@
 (defn new-game
   "Create a new game and store it in the ref"
   [& {:keys [secret]}]
-  (let [new-game-id (uuid)
+  (let [new-game-id (gen-uuid)
          ; this if can be moved in the pattern matching above?
         new-secret (if (nil? secret) (wordgen/gen-string wordgen/all-words @word-length) secret)
         new-secret-struct (initialize-struct new-secret)]
