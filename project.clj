@@ -6,6 +6,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7 and add core.async
+                 [com.cemerick/friend "0.2.1"]
                  [clj-jwt "0.0.13"]
                  [http-kit "2.1.19"]
                  [hiccup "1.0.5"]
@@ -18,8 +19,11 @@
                  [com.stuartsierra/component "0.2.3"]
                  [play-clj "0.4.6"]
                  [compojure "1.3.3"]
+                 [bidi "1.19.0"]
                  [environ "1.0.0"]
+                 [org.clojure/core.memoize "0.5.6"]
                  [slamhound "1.5.5"]
+                 [ring-middleware-format "0.3.2" :exclusions [ring]]
                  [org.clojure/tools.cli "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
                  [ring/ring-defaults "0.1.4"]

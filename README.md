@@ -11,6 +11,7 @@ Hangman backend implementation
 - concurrent games
 
 # TODO
+- move routing to use BIDI
 - ring-swagger support
 - schema support for validation
 - deploy to Heroku, and integration with pallet
