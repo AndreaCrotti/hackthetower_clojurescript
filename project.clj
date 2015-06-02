@@ -7,6 +7,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7 and add core.async
                  [com.cemerick/friend "0.2.1"]
+                 [expectations "2.1.1"]
                  [clj-jwt "0.0.13"]
                  [http-kit "2.1.19"]
                  [hiccup "1.0.5"]
@@ -31,10 +32,13 @@
                  [org.xerial/sqlite-jdbc "3.8.10.1"]]
   
   :plugins [[lein-ring "0.8.13"]
+            [lein-expectations "0.0.8"]
             [lein-environ "1.0.0"]]
+
   :ring {:handler hangman.handler/app
          :auto-reload? true
          :auto-refresh? true}
+  :aliases {"test" ["expectations"]}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [midje "1.6.3"]
