@@ -10,7 +10,6 @@
   "Move and return a JSON response to the client"
   (let [game-id (:game-id params)
         letter (nth (:letter params) 0)]
-
     {:status 200 :body (secret/reveal-letter game-id letter)}))
 
 (defn initialize-word

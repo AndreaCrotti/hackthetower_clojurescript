@@ -3,16 +3,22 @@
             [ring.mock.request :as mock]
             [hangman.handler :refer :all]))
 
-
 (deftest initialize-test
   (testing "Init everything"
     (let [response (app (mock/request :post "/initialize"))]
       (is (= (:status response) 201))))
+
   (testing "get current word"
     (let [response (app (mock/request :get "/status"))]
       (is (= (:status response) 200)))))
 
 (deftest move-test
+  (testing "non existing letter does not blow up"
+    (let [game-id (:body (initialize-word "abc"))
+          response (app (mock/request :post "/move" {:letter \d :game-id game-id}))]
+      (is (= (:status response) 200))
+      (is (= (:body response) "___"))))
+
   (testing "set up and do a move"
     ;TODO: should this be done as call as well??
     (let [game-id (:body (initialize-word "abc"))
