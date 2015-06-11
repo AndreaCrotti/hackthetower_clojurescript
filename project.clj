@@ -7,6 +7,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"] ;TODO: try clojure 1.7 and add core.async
                  [com.cemerick/friend "0.2.1"]
+                 [quil "2.2.6"]
                  [expectations "2.1.1"]
                  [clj-jwt "0.0.13"]
                  [http-kit "2.1.19"]
