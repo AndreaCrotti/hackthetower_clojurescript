@@ -50,7 +50,7 @@
   :ring {:handler hangman.handler/app
          :auto-reload? true
          :auto-refresh? true}
-  :aliases {"test" ["expectations"]}
+  ;; :aliases {"test" ["expectations"]}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [midje "1.6.3"]
