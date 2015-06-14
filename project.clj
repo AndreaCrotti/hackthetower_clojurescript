@@ -17,6 +17,7 @@
 
                  [play-clj "0.4.6"]
                  [quil "2.2.6"]
+                 [inkwell "0.1.1"]
 
                  [expectations "2.1.1"]
 

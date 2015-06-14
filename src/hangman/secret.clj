@@ -1,6 +1,7 @@
 (ns hangman.secret
-  (:require [clojure.string :as str]
-            [clojure.set :as set]
+  (:require [clojure
+             [set :as set]
+             [string :as str]]
             [hangman.wordgen :as wordgen]))
 
 (defn reset-games!

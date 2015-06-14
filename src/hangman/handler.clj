@@ -1,9 +1,9 @@
 (ns hangman.handler
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [clojure.data.json :as json]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
-            [hangman.secret :as secret]))
+  (:require [compojure
+             [core :refer :all]
+             [route :as route]]
+            [hangman.secret :as secret]
+            [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
 (defn move-api
   [params]

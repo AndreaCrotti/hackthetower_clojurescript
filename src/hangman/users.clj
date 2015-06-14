@@ -1,6 +1,7 @@
 (ns hangman.users
-  (:require [clojure.java.jdbc :as j]
-            [clojure.java.io :refer [delete-file]]))
+  (:require [clojure.java
+             [io :refer [delete-file]]
+             [jdbc :as j]]))
 
 (def db-filename "db/database.db")
 

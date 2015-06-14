@@ -1,8 +1,7 @@
 (ns hangman.wordgen
   (:require [clojure.string :as str]
-            [pl.danieljanus.tagsoup :as tagsoup]
-            [org.httpkit.client :as http]
-            [hangman.utils :as utils]))
+            [hangman.utils :as utils]
+            [pl.danieljanus.tagsoup :as tagsoup]))
 
 ;; Paths to the wordreference content for the given word
 ;; #source-luna > div:nth-child(1) > section > div > div.def-list > section:nth-child(1) > div:nth-child(2) > di

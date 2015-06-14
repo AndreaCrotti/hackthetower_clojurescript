@@ -1,10 +1,11 @@
 ;TODO: add AOT thing to make it faster
 (ns hangman.game
-  (:gen-class :main true)
+  (:gen-class
+   :main true)
   (:require [clojure.tools.cli :refer [parse-opts]]
-            [hangman.secret :refer :all]
-            [hangman.wordgen :as wordgen]
-            [clojure.set :as set]))
+            [hangman
+             [secret :refer :all]
+             [wordgen :as wordgen]]))
 
 (def game-id (atom nil))
 
