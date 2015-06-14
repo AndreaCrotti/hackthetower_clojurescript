@@ -1,7 +1,18 @@
 (ns hangman.wordgen
   (:require [clojure.string :as str]
+            [com.stuartsierra.component :as component]
             [hangman.utils :as utils]
             [pl.danieljanus.tagsoup :as tagsoup]))
+
+(defrecord WordGen [length]
+  component/Lifecycle
+  (start [component]
+    (println "Starting wordgen component"))
+  (stop [component]
+    (println "Stopping the wordgen component")))
+
+(defn new-wordgen [length]
+  (map->WordGen length))
 
 ;; Paths to the wordreference content for the given word
 ;; #source-luna > div:nth-child(1) > section > div > div.def-list > section:nth-child(1) > div:nth-child(2) > di

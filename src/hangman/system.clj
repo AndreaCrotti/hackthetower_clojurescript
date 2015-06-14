@@ -1,4 +1,6 @@
 (ns hangman.system
+  (:gen-class
+   :main true)
   (:require [com.stuartsierra.component :as component]
             [hangman
              [database :as database]
@@ -9,16 +11,35 @@
 
 (defn make-system [{:keys [is-dev? db-file port]}]
   (component/system-map
-   :database (database/map->new-database {:db-file db-file})
+   :database (database/new-database db-file)
 
-   :wordgen (wordgen/map->new-wordgen)
+   :wordgen (wordgen/new-wordgen 10)
 
    :webserver (component/using
                (handler/new-webserver {:ring {:port (or port 3000) :join? false}
                                        :is-dev? is-dev?}))))
 
+(def cli-options
+  ;; An option with a required argument
+  [["-n" "--attempts ATTEMPT" "Number of max attempts"
+    :default 10
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(pos? %) "Must be a positive number"]]
 
-                                        ;TODO: how do we make something optional?
+   ["-l" "--length LENGTH" "Random string length"
+    :default 10
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(pos? %) "Must be a positive number"]]
+
+   ["-s" "--secret" "Optional string to set"]
+
+   ["-v" nil "Verbosity level"
+    :id :verbosity
+    :default 0
+    :assoc-fn (fn [m k _] (update-in m [k] inc))]
+   ;; A boolean option defaulting to nil
+   ["-h" "--help"]])
+
 (defn -main
   [& args]
   (let [options (parse-opts args cli-options)

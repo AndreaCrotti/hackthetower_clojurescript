@@ -2,8 +2,20 @@
   (:require [compojure
              [core :refer :all]
              [route :as route]]
+            [com.stuartsierra.component :as component]
             [hangman.secret :as secret]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
+
+
+(defrecord WebServer [port]
+  component/Lifecycle
+  (start [component]
+    (println "starting the web server"))
+  (stop [component]
+    (println "Stopping the web server component")))
+
+(defn new-webserver [port]
+  (map->WebServer port))
 
 (defn move-api
   [params]
