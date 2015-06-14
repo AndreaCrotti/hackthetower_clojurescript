@@ -3,7 +3,7 @@
 
 (def steps
   "Number of steps to execute"
-  (atom 0))
+  (atom 7))
 
 (defn increase-step
   "Add one more step, TODO: use channels instead of this maybe"
@@ -13,9 +13,28 @@
 (def WIDTH 640)
 (def HEIGHT 480)
 
+(def BACKGROUND-COLOR 100)
+(def LINES-COLOR 256)
+
+(def sizes
+  {:base 100
+   :stick 50
+   :hook 50})
+
 (def showing-order
-  {0 {:base (fn [] (q/box 10))}
-   1 {:stick (fn [] (q/line HEIGHT (/ WIDTH 2)))}
+  {0 {:base
+      (fn [] (q/rect (- (/ WIDTH 2) (/ (:base sizes) 2))
+                    (- HEIGHT (:base sizes))
+                    (:base sizes)
+                    (:base sizes)))}
+
+   1 {:stick
+      (fn []
+        (let [x (/ WIDTH 2)
+              y (- HEIGHT (:base sizes))]
+          
+          (q/line x y x (- y (:stick sizes)))))}
+
    2 {:hook (fn [] (q/line 1 2))}})
 
 (defn up-to-step
@@ -25,20 +44,26 @@
        (filter #(< (nth % 0) n))
        (into {})))
 
+(defn flatten-functions
+  []
+  (let [submap (up-to-step @steps)]
+    (flatten
+     (for [[idx objs] submap]
+       (for [[name func] objs]
+         func)))))
+
 
 (defn setup []
   (q/smooth)
   (q/frame-rate 1)
-  (q/background 200))
+  (q/background BACKGROUND-COLOR))
 
 
 (defn draw
   []
-  (let [sub-map (showing-order @steps)]
-    (doseq [[idx objs] sub-map]
-      (doseq [[name func] objs]
-        (println "Drawing object " name)
-        (func)))))
+  (doseq [func (flatten-functions)]
+    (print func)
+    (func)))
 
 
 (q/defsketch hangman
