@@ -1,6 +1,15 @@
 (ns hangman.quil
   (:require [quil.core :as q]))
 
+(def steps
+  "Number of steps to execute"
+  (atom 0))
+
+(defn increase-step
+  "Add one more step, TODO: use channels instead of this maybe"
+  []
+  (swap! steps inc))
+
 (def WIDTH 640)
 (def HEIGHT 480)
 
@@ -25,8 +34,11 @@
 
 (defn draw
   []
-  (q/ellipse 100 100 100 100)
-  (q/line 0 0 10 10))
+  (let [sub-map (showing-order @steps)]
+    (doseq [[idx objs] sub-map]
+      (doseq [[name func] objs]
+        (println "Drawing object " name)
+        (func)))))
 
 
 (q/defsketch hangman
