@@ -9,6 +9,13 @@
    1 {:stick (fn [] (q/line HEIGHT (/ WIDTH 2)))}
    2 {:hook (fn [] (q/line 1 2))}})
 
+(defn up-to-step
+  "Return the variables up to the given step"
+  [n]
+  (->> showing-order
+       (filter #(< (nth % 0) n))
+       (into {})))
+
 
 (defn setup []
   (q/smooth)
@@ -16,11 +23,8 @@
   (q/background 200))
 
 
-(def base []
-  )
-
 (defn draw
-  [steps]
+  []
   (q/ellipse 100 100 100 100)
   (q/line 0 0 10 10))
 
