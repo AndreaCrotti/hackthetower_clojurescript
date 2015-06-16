@@ -21,21 +21,27 @@
    :stick 50
    :hook 50})
 
+(def dimensions
+  (let [center (/ WIDTH 2)
+        box-width 100
+        box-height 100
+        stick-length (+ HEIGHT 200)]
+    {:base {:x (- center (/ box-width 2))
+            :y (- HEIGHT box-height)
+            :width box-width
+            :height box-height}
+     :stick {:x1 center :y1 HEIGHT
+             :x2 center :y2 stick-length}}))
+
 (def showing-order
   {0 {:base
-      (fn [] (q/rect (- (/ WIDTH 2) (/ (:base sizes) 2))
-                    (- HEIGHT (:base sizes))
-                    (:base sizes)
-                    (:base sizes)))}
+      (fn [] (apply q/rect (vals (:base dimensions))))}
 
    1 {:stick
       (fn []
-        (let [x (/ WIDTH 2)
-              y (- HEIGHT (:base sizes))]
-          
-          (q/line x y x (- y (:stick sizes)))))}
+        (apply q/line (vals (:stick dimensions))))}
 
-   2 {:hook (fn [] (q/line 1 2))}})
+   2 {:hook (fn [] (q/line 100 100 200 500))}})
 
 (defn up-to-step
   "Return the variables up to the given step"
@@ -62,7 +68,6 @@
 (defn draw
   []
   (doseq [func (flatten-functions)]
-    (print func)
     (func)))
 
 
