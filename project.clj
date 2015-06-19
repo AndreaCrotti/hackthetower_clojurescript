@@ -12,6 +12,8 @@
                  [org.clojure/tools.cli "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
 
+
+                 [prismatic/schema "0.4.3"]
                  [com.cemerick/friend "0.2.1"]
                  [clj-jwt "0.0.13"]
 
