@@ -41,7 +41,7 @@
                  [com.stuartsierra/component "0.2.3"]
 
                  [compojure "1.3.4"]
-                 [bidi "1.19.0"]
+                 [bidi "1.19.1"]
 
                  [environ "1.0.0"]
                  [slamhound "1.5.5"]]
