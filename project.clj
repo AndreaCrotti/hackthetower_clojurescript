@@ -22,6 +22,7 @@
                  [inkwell "0.1.1"]
 
                  [expectations "2.1.1"]
+                 [org.clojure/test.check "0.7.0"]
 
                  [http-kit "2.1.19"]
 
