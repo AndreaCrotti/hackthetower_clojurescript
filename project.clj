@@ -15,13 +15,13 @@
 
                  [prismatic/schema "0.4.3"]
                  [com.cemerick/friend "0.2.1"]
-                 [clj-jwt "0.0.13"]
+                 [clj-jwt "0.1.0"]
 
                  [play-clj "0.4.6"]
                  [quil "2.2.6"]
                  [inkwell "0.1.1"]
 
-                 [expectations "2.1.1"]
+                 [expectations "2.1.2"]
                  [org.clojure/test.check "0.7.0"]
 
                  [http-kit "2.1.19"]
@@ -42,7 +42,7 @@
                  [com.stuartsierra/component "0.2.3"]
 
                  [compojure "1.3.4"]
-                 [bidi "1.19.1"]
+                 [bidi "1.20.0"]
 
                  [environ "1.0.0"]
                  [slamhound "1.5.5"]]

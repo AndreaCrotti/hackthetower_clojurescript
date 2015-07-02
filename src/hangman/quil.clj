@@ -71,8 +71,8 @@
     (func)))
 
 
-(q/defsketch hangman
-  :title "Hangman game"
-  :setup setup
-  :draw draw
-  :size [640 480])
+#_(q/defsketch hangman
+    :title "Hangman game"
+    :setup setup
+    :draw draw
+    :size [640 480])
