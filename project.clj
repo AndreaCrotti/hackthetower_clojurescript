@@ -11,7 +11,7 @@
                  [org.clojure/core.memoize "0.5.7"]
                  [org.clojure/tools.cli "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
-
+                 [org.clojure/core.typed "0.3.0"]
 
                  [prismatic/schema "0.4.3"]
                  [com.cemerick/friend "0.2.1"]
