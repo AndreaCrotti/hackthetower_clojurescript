@@ -2,7 +2,8 @@
   (:require [clojure.java
              [io :refer [delete-file]]
              [jdbc :as j]]
-            [yesql.core :as yes]))
+            [yesql.core :as yes]
+            [environ.core :refer [env]]))
 
 (def db-filename "db/database.db")
 
@@ -11,6 +12,12 @@
    :subprotocol "sqlite"
    :subname     db-filename
    })
+
+(def new-db-spec {:classname "org.postgresql.Driver"
+                  :subprotocol "postgresql"
+                  :subname (str "//localhost:5432/" (env :POSTGRES_DATABASE))
+                  :user (env :POSTGRES_USER)
+                  :password (env :POSTGRES_PASSWORD)})
 
 
 (defn create-users-schema

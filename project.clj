@@ -29,6 +29,7 @@
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
 
                  [org.xerial/sqlite-jdbc "3.8.11.1"]
+                 [org.postgresql/postgresql "9.2-1003-jdbc4"]
                  [org.clojure/java.jdbc "0.4.1"]
                  [yesql "0.5.0"]
 
