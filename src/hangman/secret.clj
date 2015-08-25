@@ -24,7 +24,7 @@
       {:char (:char el) :visible true}
       el)))
 
-(defn- snapshot
+(defn snapshot
   "Get the last situation for the given game-id"
   [game-id]
   (first (get @live-games game-id)))
@@ -77,8 +77,8 @@
   (contains? (set all-chars) char))
 
 (defn available-letters
-  [game-id]
-  (set/difference (set all-chars) (:seen (snapshot game-id))))
+  [word-struct]
+  (clojure.set/difference (set all-chars) (:seen word-struct)))
 
 ;; (mapv (fn [i] {:char i :visible (not (valid-char i))}))
 (defn initialize-struct
@@ -87,7 +87,7 @@
   {:seen #{}
    :struct (mapv (fn [i] {:char i :visible (not (valid-char i))}) word)
    :attempts 0})
-
+ 
 (defn attempts
   "Return number of attempts done in this game"
   [game-id]
@@ -110,7 +110,7 @@
   (let [current (snapshot game-id)
         is-found (found? game-id letter)
         new-struct (update-struct current letter is-found)]
-
+ 
     (set-secret game-id new-struct)
     (get-secret game-id)))
 
@@ -129,11 +129,9 @@
     (set-secret new-game-id new-secret-struct)
     new-game-id))
 
-
 (defn current-games
   "Return a list of currently active games"
   [] (keys @live-games))
-
 
 (defn game-over
   "Return true if the given game is over"

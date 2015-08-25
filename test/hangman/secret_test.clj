@@ -22,9 +22,9 @@
 (deftest available-chars-test
   (testing "available chars shrinks"
     (let [game-id (new-game :secret "hello")]
-      (is (= (count (available-letters game-id)) 26))
+      (is (= (count (available-letters (snapshot game-id))) 26))
       (reveal-letter game-id \h)
-      (is (= (count (available-letters game-id)) 25)))))
+      (is (= (count (available-letters (snapshot game-id))) 25)))))
 
 (deftest initialize-test
   (testing "new structure shape"

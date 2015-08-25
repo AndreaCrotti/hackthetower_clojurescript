@@ -14,7 +14,7 @@
     (when (not valid?) (println "Invalid input"))
     valid?))
 
-(defn valid-chars [] (available-letters @game-id))
+(defn valid-chars [] (available-letters (snapshot @game-id)))
 
 (defn valid-character? [character]
   (let [valid? (contains? (valid-chars) character)]
