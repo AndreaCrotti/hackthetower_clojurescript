@@ -1,7 +1,8 @@
 (ns hangman.users
   (:require [clojure.java
              [io :refer [delete-file]]
-             [jdbc :as j]]))
+             [jdbc :as j]]
+            [yesql.core :as yes]))
 
 (def db-filename "db/database.db")
 
@@ -10,6 +11,7 @@
    :subprotocol "sqlite"
    :subname     db-filename
    })
+
 
 (defn create-users-schema
   []
