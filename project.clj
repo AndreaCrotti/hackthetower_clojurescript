@@ -9,19 +9,19 @@
                  [org.clojure/core.match "0.3.0-alpha4"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [org.clojure/core.memoize "0.5.7"]
-                 [org.clojure/tools.cli "0.3.2"]
+                 [org.clojure/tools.cli "0.3.3"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.10"]
+                 [org.clojure/core.typed "0.3.11"]
 
-                 [prismatic/schema "0.4.3"]
+                 [prismatic/schema "0.4.4"]
                  [com.cemerick/friend "0.2.1"]
                  [clj-jwt "0.1.0"]
 
                  [quil "2.2.6"]
                  [inkwell "0.1.1"]
 
-                 [expectations "2.1.2"]
-                 [org.clojure/test.check "0.7.0"]
+                 [expectations "2.1.3"]
+                 [org.clojure/test.check "0.8.1"]
 
                  [http-kit "2.1.19"]
 
@@ -30,10 +30,11 @@
 
                  [org.xerial/sqlite-jdbc "3.8.11.1"]
                  [org.clojure/java.jdbc "0.4.1"]
+                 [yesql "0.5.0"]
 
                  [metosin/ring-swagger "0.20.4"]
                  [metosin/ring-swagger-ui "2.1.8-M1"]
-                 [metosin/ring-http-response "0.6.3"]
+                 [metosin/ring-http-response "0.6.4"]
                  [ring/ring-defaults "0.1.5"]
                  [ring-middleware-format "0.5.0" :exclusions [ring]]
 
@@ -45,6 +46,8 @@
                  [environ "1.0.0"]
                  [slamhound "1.5.5"]]
   
+  :phoenix/config "hangman.edn"
+
   :plugins [[lein-ring "0.8.13"]
             [lein-expectations "0.0.8"]
             [lein-environ "1.0.0"]]

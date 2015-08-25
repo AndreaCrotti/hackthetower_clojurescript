@@ -1,0 +1,3 @@
+{:phoenix/nrepl-port 7888
+
+ :database {:phoenix/component hangman.users/}}
