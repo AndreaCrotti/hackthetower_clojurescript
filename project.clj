@@ -7,21 +7,21 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [org.clojure/core.memoize "0.5.7"]
+                 [org.clojure/core.async "0.2.374"]
+                 [org.clojure/core.memoize "0.5.8"]
                  [org.clojure/tools.cli "0.3.3"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.11"]
+                 [org.clojure/core.typed "0.3.19"]
 
-                 [prismatic/schema "1.0.1"]
+                 [prismatic/schema "1.0.4"]
                  [com.cemerick/friend "0.2.1"]
                  [clj-jwt "0.1.1"]
 
-                 [quil "2.2.6"]
+                 [quil "2.3.0"]
                  [inkwell "0.1.1"]
 
-                 [expectations "2.1.3"]
-                 [org.clojure/test.check "0.8.2"]
+                 [expectations "2.1.4"]
+                 [org.clojure/test.check "0.9.0"]
 
                  [http-kit "2.1.19"]
 
@@ -29,18 +29,18 @@
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
 
                  [org.xerial/sqlite-jdbc "3.8.11.2"]
-                 [org.postgresql/postgresql "9.2-1003-jdbc4"]
+                 [org.postgresql/postgresql "9.4.1207"]
                  [org.clojure/java.jdbc "0.4.2"]
                  [yesql "0.5.1"]
 
-                 [metosin/ring-swagger "0.21.0"]
+                 [metosin/ring-swagger "0.22.1"]
                  [metosin/ring-swagger-ui "2.1.8-M1"]
                  [metosin/ring-http-response "0.6.5"]
                  [ring/ring-defaults "0.1.5"]
-                 [ring-middleware-format "0.6.0" :exclusions [ring]]
+                 [ring-middleware-format "0.7.0" :exclusions [ring]]
 
                  [jarohen/phoenix "0.1.2"]
-                 [com.stuartsierra/component "0.3.0"]
+                 [com.stuartsierra/component "0.3.1"]
 
                  [compojure "1.4.0"]
 
