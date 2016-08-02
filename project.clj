@@ -11,9 +11,9 @@
                  [org.clojure/core.memoize "0.5.9"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.23"]
+                 [org.clojure/core.typed "0.3.24"]
 
-                 [prismatic/schema "1.1.2"]
+                 [prismatic/schema "1.1.3"]
                  [com.cemerick/friend "0.2.3"]
                  [clj-jwt "0.1.1"]
 
@@ -29,7 +29,7 @@
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
 
                  [org.xerial/sqlite-jdbc "3.8.11.2"]
-                 [org.postgresql/postgresql "9.4.1208"]
+                 [org.postgresql/postgresql "9.4.1209"]
                  [org.clojure/java.jdbc "0.6.1"]
                  [yesql "0.5.3"]
 
