@@ -11,7 +11,7 @@
                  [org.clojure/core.memoize "0.5.9"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.24"]
+                 [org.clojure/core.typed "0.3.25"]
 
                  [prismatic/schema "1.1.3"]
                  [com.cemerick/friend "0.2.3"]
@@ -33,8 +33,8 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [yesql "0.5.3"]
 
-                 [metosin/ring-swagger "0.22.9"]
-                 [metosin/ring-swagger-ui "2.1.8-M1"]
+                 [metosin/ring-swagger "0.22.10"]
+                 [metosin/ring-swagger-ui "2.2.2-0"]
                  [metosin/ring-http-response "0.8.0"]
                  [ring/ring-defaults "0.2.1"]
                  [ring-middleware-format "0.7.0" :exclusions [ring]]
@@ -44,7 +44,7 @@
 
                  [compojure "1.5.1"]
 
-                 [environ "1.0.3"]
+                 [environ "1.1.0"]
                  [slamhound "1.5.5"]]
   
   :phoenix/config "hangman.edn"

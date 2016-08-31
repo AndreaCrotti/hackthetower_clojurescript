@@ -1,4 +1,3 @@
-;TODO: add AOT thing to make it faster
 (ns hangman.game
   (:gen-class
    :main true)
