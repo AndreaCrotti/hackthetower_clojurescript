@@ -7,11 +7,11 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [org.clojure/core.async "0.2.385"]
+                 [org.clojure/core.async "0.2.391"]
                  [org.clojure/core.memoize "0.5.9"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.25"]
+                 [org.clojure/core.typed "0.3.28"]
 
                  [prismatic/schema "1.1.3"]
                  [com.cemerick/friend "0.2.3"]
@@ -29,7 +29,7 @@
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
 
                  [org.xerial/sqlite-jdbc "3.8.11.2"]
-                 [org.postgresql/postgresql "9.4.1209"]
+                 [org.postgresql/postgresql "9.4.1210"]
                  [org.clojure/java.jdbc "0.6.1"]
                  [yesql "0.5.3"]
 
