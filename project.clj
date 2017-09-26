@@ -11,7 +11,7 @@
                  [org.clojure/core.memoize "0.5.9"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/core.typed "0.3.32"]
+                 [org.clojure/core.typed "0.4.1"]
 
                  [prismatic/schema "1.1.6"]
                  [com.cemerick/friend "0.2.3"]
@@ -28,15 +28,15 @@
                  [hiccup "1.0.5"]
                  [clj-tagsoup "0.3.0" :exclusions [org.clojure/clojure]]
 
-                 [org.xerial/sqlite-jdbc "3.18.0"]
-                 [org.postgresql/postgresql "42.1.1"]
-                 [org.clojure/java.jdbc "0.6.1"]
+                 [org.xerial/sqlite-jdbc "3.20.0"]
+                 [org.postgresql/postgresql "42.1.4"]
+                 [org.clojure/java.jdbc "0.7.1"]
                  [yesql "0.5.3"]
 
-                 [metosin/ring-swagger "0.24.0"]
-                 [metosin/ring-swagger-ui "2.2.10"]
+                 [metosin/ring-swagger "0.24.2"]
+                 [metosin/ring-swagger-ui "3.0.17"]
                  [metosin/ring-http-response "0.9.0"]
-                 [ring/ring-defaults "0.3.0"]
+                 [ring/ring-defaults "0.3.1"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
 
                  [jarohen/phoenix "0.1.3"]
